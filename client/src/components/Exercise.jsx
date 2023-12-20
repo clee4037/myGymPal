@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import data from "./exerciseData";
-const Exercise = () => {
+const Exercise = ({ name, setCount }) => {
   const [sets, setSets] = useState(null);
 
   const newSet = (
@@ -35,24 +35,14 @@ const Exercise = () => {
       </td>
     </tr>
   );
-  useEffect(() => addSet(), [data]);
-  const addSet = () => {
+
+  useEffect(() => (setCount ? addSet(setCount) : addSet(1)), [data, setCount]);
+
+  const addSet = (count) => {
     sets ? setSets([...sets, newSet]) : setSets([newSet]);
   };
 
-  /*
-<select id="myDropdown">
-  <optgroup label="Section 1">
-    <option value="option1">Option 1</option>
-    <option value="option2">Option 2</option>
-  </optgroup>
-  <optgroup label="Section 2">
-    <option value="option3">Option 3</option>
-    <option value="option4">Option 4</option>
-  </optgroup>
-</select>
-*/
-
+  /* EXERCISE LIST */
   const exerciseList = data.map((exerciseGroup) => (
     <optgroup label={exerciseGroup.type}>
       {exerciseGroup.exercises.map((exercise) => (
@@ -71,7 +61,9 @@ const Exercise = () => {
             // onChange={(e) => set...(e.target.value)}
           />
         </label> */}
-        <select className="exercise-dropdown">{exerciseList}</select>
+        <select className="exercise-dropdown" value={name}>
+          {exerciseList}
+        </select>
         <table className="exercise-table">
           <thead>
             <tr>
@@ -83,9 +75,11 @@ const Exercise = () => {
           </thead>
           <tbody>{sets && sets}</tbody>
           <div className="exercise-table-button-row">
-            <button onClick={() => addSet()}>Add Set</button>
-            <button>Historical</button>
-            <button>Graph</button>
+            <button className="exercise-table-add-btn" onClick={() => addSet()}>
+              Add Set
+            </button>
+            <button className="exercise-table-his-btn">Historical</button>
+            <button className="exercise-table-graph-btn">Graph</button>
           </div>
         </table>
       </div>

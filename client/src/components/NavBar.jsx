@@ -4,7 +4,7 @@ const NavBar = ({ currentPage, updatePage }) => {
   const [hiddenButton, setHiddenButtons] = useState(null);
   useEffect(() => {
     setHiddenButtons(currentPage);
-  }, []);
+  }, [currentPage]);
   const updateHiddenButton = (newButton) => {
     setHiddenButtons(newButton);
   };

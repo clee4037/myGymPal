@@ -1,9 +1,22 @@
 import React, { useRef, useState, useEffect } from "react";
 import Exercise from "./Exercise";
+import data from "./routineData";
 import "../stylesheets/exercise.css";
 
 const NewWorkout = () => {
   const [exercises, setExercises] = useState(null);
+  const [routine, setRoutine] = useState(null);
+  const chooseRoutine = (e) => {
+    const selectedRoutine = data.find(
+      (routine) => routine.name === e.target.value
+    );
+    setRoutine(selectedRoutine);
+
+    const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
+      <Exercise name={exercise} setCount={sets} />
+    ));
+    setExercises(exercises);
+  };
   const addExercise = () => {
     exercises
       ? setExercises([...exercises, <Exercise />])
@@ -13,13 +26,20 @@ const NewWorkout = () => {
     <>
       <h3>Workout</h3>
       <div className="workout-header">
-        <label htmlFor="name-field" className="workout-name">
+        <select className="workout-routine-dropdown" onChange={chooseRoutine}>
+          <option value="">Select an option</option>
+          <option value="New Workout">New Workout</option>
+          {data.map((routine) => (
+            <option value={routine.name}>{routine.name}</option>
+          ))}
+        </select>
+        {/* <label htmlFor="name-field" className="workout-name">
           <input
             placeholder="Name"
             // value={TO-ADD}
             // onChange={(e) => set...(e.target.value)}
           />
-        </label>
+        </label> */}
         <label htmlFor="date-field" className="workout-date">
           <input value={Date().toString()} />
         </label>
