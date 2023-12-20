@@ -5,7 +5,7 @@ const Home = () => {
   return (
     <>
       <h3>Workout Log</h3>
-      <button>Add Workout</button>
+      <button>New Workout</button>
       <WorkoutLog />
     </>
   );
