@@ -10,7 +10,6 @@ function App() {
       <NavBar />
       <Home />
       <Workout />
-      <History />
     </div>
   );
 }
