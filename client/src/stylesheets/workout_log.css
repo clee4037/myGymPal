@@ -1,0 +1,14 @@
+.workout-container {
+  border: solid 2px black;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+}
+.workout-item-container {
+  border: solid 1px black;
+  display: flex;
+  width: 30vw;
+}
+.exercise-item {
+  display: flex;
+}
