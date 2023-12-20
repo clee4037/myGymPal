@@ -1,16 +1,15 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 const Exercise = () => {
   const [sets, setSets] = useState(null);
-
   const newSet = (
     <tr key={sets ? sets.length + 1 : 1}>
       <th scope="row">{sets ? sets.length + 1 : 1}</th>
       <td>
         <label
+          placeholder="Add Weight"
           htmlFor="weight-field"
           className="exercies-weight"
-          placeholder="Add Weight"
         >
           <input />
         </label>
@@ -35,7 +34,7 @@ const Exercise = () => {
       </td>
     </tr>
   );
-
+  useEffect(() => addSet(), []);
   const addSet = () => {
     sets ? setSets([...sets, newSet]) : setSets([newSet]);
   };
@@ -60,8 +59,8 @@ const Exercise = () => {
             </tr>
           </thead>
           <tbody>{sets && sets}</tbody>
+          <button onClick={() => addSet()}>Add Set</button>
         </table>
-        <button onClick={() => addSet()}>Add Set</button>
       </div>
     </>
   );

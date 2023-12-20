@@ -3,6 +3,12 @@ import Exercise from "./Exercise";
 import "../stylesheets/exercise.css";
 
 const Workout = () => {
+  const [exercises, setExercises] = useState(null);
+  const addExercise = () => {
+    exercises
+      ? setExercises([...exercises, <Exercise />])
+      : setExercises([<Exercise />]);
+  };
   return (
     <>
       <h3>Workout</h3>
@@ -24,8 +30,9 @@ const Workout = () => {
             // onChange={(e) => set...(e.target.value)}
           />
         </label>
-        <button>Add Exercise</button>
-        <Exercise />
+        <button onClick={addExercise}>Add Exercise</button>
+
+        <div>{exercises && exercises}</div>
       </div>
     </>
   );
