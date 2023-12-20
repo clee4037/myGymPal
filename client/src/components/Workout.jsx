@@ -30,9 +30,10 @@ const Workout = () => {
             // onChange={(e) => set...(e.target.value)}
           />
         </label>
-        <button onClick={addExercise}>Add Exercise</button>
-
+      </div>
+      <div className="workout-body">
         <div>{exercises && exercises}</div>
+        <button onClick={addExercise}>Add Exercise</button>
       </div>
     </>
   );

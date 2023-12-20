@@ -59,7 +59,11 @@ const Exercise = () => {
             </tr>
           </thead>
           <tbody>{sets && sets}</tbody>
-          <button onClick={() => addSet()}>Add Set</button>
+          <div className="exercise-table-button-row">
+            <button onClick={() => addSet()}>Add Set</button>
+            <button>Historical</button>
+            <button>Graph</button>
+          </div>
         </table>
       </div>
     </>
