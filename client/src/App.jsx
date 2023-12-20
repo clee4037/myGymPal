@@ -1,17 +1,21 @@
 import React, { useState, useEffect } from "react";
 import NavBar from "./components/NavBar.jsx";
-import Workout from "./components/Workout.jsx";
-import Home from "./components/Home.jsx";
+import NewWorkout from "./components/NewWorkout.jsx";
+import WorkoutLog from "./components/WorkoutLog.jsx";
 // import History from "./components/History.jsx";
 import Routines from "./components/Routines.jsx";
 
 function App() {
+  const [page, setPage] = useState("log");
+  const updatePage = (newPage) => {
+    setPage(newPage);
+  };
   return (
     <div className="App">
-      <NavBar />
-      <Routines />
-      <Workout />
-      <Home />
+      <NavBar currentPage={page} updatePage={updatePage} />
+      {page === "routine" && <Routines />}
+      {page === "workout" && <NewWorkout />}
+      {page === "log" && <WorkoutLog updatePage={updatePage} />}
     </div>
   );
 }

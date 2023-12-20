@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import "../stylesheets/exercise.css";
 
-const Workout = () => {
+const NewWorkout = () => {
   const [exercises, setExercises] = useState(null);
   const addExercise = () => {
     exercises
@@ -34,9 +34,10 @@ const Workout = () => {
       <div className="workout-body">
         <div>{exercises && exercises}</div>
         <button onClick={addExercise}>Add Exercise</button>
+        <button>Finish Workout</button>
       </div>
     </>
   );
 };
 
-export default Workout;
+export default NewWorkout;

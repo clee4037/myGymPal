@@ -1,5 +1,4 @@
-.workout-container {
-  border: solid 2px black;
+.workout-log {
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;

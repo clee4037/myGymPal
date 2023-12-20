@@ -1,13 +1,56 @@
 import React, { useRef, useState, useEffect } from "react";
 
-const NavBar = () => {
+const NavBar = ({ currentPage, updatePage }) => {
+  const [hiddenButton, setHiddenButtons] = useState(null);
+  useEffect(() => {
+    setHiddenButtons(currentPage);
+  }, []);
+  const updateHiddenButton = (newButton) => {
+    setHiddenButtons(newButton);
+  };
   return (
     <>
       <h3>Navigation Bar</h3>
-      <button>Workout Log</button>
-      <button>Routines</button>
-      <button>Statistics</button>
-      <button>Profile</button>
+      {hiddenButton !== "log" && (
+        <button
+          onClick={() => {
+            updateHiddenButton("log");
+            updatePage("log");
+          }}
+        >
+          Workout Log
+        </button>
+      )}
+      {hiddenButton !== "routine" && (
+        <button
+          onClick={() => {
+            updateHiddenButton("routine");
+            updatePage("routine");
+          }}
+        >
+          Routines
+        </button>
+      )}
+      {hiddenButton !== "stats" && (
+        <button
+          onClick={() => {
+            updateHiddenButton("stats");
+            updatePage("stats");
+          }}
+        >
+          Statistics
+        </button>
+      )}
+      {hiddenButton !== "profile" && (
+        <button
+          onClick={() => {
+            updateHiddenButton("profile");
+            updatePage("profile");
+          }}
+        >
+          Profile
+        </button>
+      )}
     </>
   );
 };

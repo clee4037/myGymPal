@@ -5,11 +5,11 @@ import routines from "./routineData";
 import RoutineItem from "./RoutineItem";
 
 const Routines = () => {
-  console.log(routines);
+  const addRoutine = () => {};
   return (
     <>
       <h3>Routines</h3>
-      <button>Add Routine</button>
+      <button onClick={() => addRoutine()}>Add Routine</button>
       {routines.map((routine) => (
         <RoutineItem data={routine} />
       ))}
