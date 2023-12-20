@@ -1,6 +1,6 @@
 var data = [
   {
-    name: "Chest",
+    name: "Nat's Chad Chest Day",
     data: [
       {
         exercise: "Bench Press",
@@ -17,7 +17,7 @@ var data = [
     ],
   },
   {
-    name: "Back",
+    name: "Uncle J's Back Day",
     data: [
       {
         exercise: "Lat Pulldowns",
@@ -34,7 +34,7 @@ var data = [
     ],
   },
   {
-    name: "Legs",
+    name: "Kevin's Leg Day",
     data: [
       {
         exercise: "Squats",

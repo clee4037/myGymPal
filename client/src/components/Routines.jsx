@@ -5,7 +5,9 @@ import routines from "./routineData";
 import RoutineItem from "./RoutineItem";
 
 const Routines = () => {
-  const addRoutine = () => {};
+  const addRoutine = () => {
+    console.log("Not Functional");
+  };
   return (
     <>
       <h3>Routines</h3>

@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import Exercise from "./Exercise";
 import data from "./routineData";
 import "../stylesheets/exercise.css";
@@ -33,15 +33,8 @@ const NewWorkout = () => {
             <option value={routine.name}>{routine.name}</option>
           ))}
         </select>
-        {/* <label htmlFor="name-field" className="workout-name">
-          <input
-            placeholder="Name"
-            // value={TO-ADD}
-            // onChange={(e) => set...(e.target.value)}
-          />
-        </label> */}
         <label htmlFor="date-field" className="workout-date">
-          <input value={Date().toString()} />
+          <input type="date" />
         </label>
         <label htmlFor="notes-field" className="workout-notes">
           <input

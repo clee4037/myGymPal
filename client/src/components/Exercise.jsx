@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import History from "./History";
 import data from "./exerciseData";
+import historyData from "./sampleData";
 const Exercise = ({ name, setCount }) => {
   const [sets, setSets] = useState(null);
+  const [history, setHistory] = useState(null);
 
   const newSet = (count) => {
     let setCount;
     if (count) {
       setCount = count + 1;
     } else if (sets) {
-      console.log(sets.length);
       setCount = sets.length + 1;
     } else {
       setCount = 1;
@@ -61,6 +63,33 @@ const Exercise = ({ name, setCount }) => {
     sets ? setSets([...sets, addedSets]) : setSets(addedSets);
   };
 
+  /* REFORMAT DATA -- ORDER BY EXERCISE | WILL MOVE TO PARENT SO TRANSFORMATION ONLY DONE ONCE */
+  const reformattedData = {};
+  historyData.forEach((workout) => {
+    workout.exercises.forEach((exercise) => {
+      if (!reformattedData[exercise.name]) {
+        reformattedData[exercise.name] = [
+          { date: workout.date, data: exercise.data },
+        ];
+      } else {
+        reformattedData[exercise.name].push({
+          date: workout.date,
+          data: exercise.data,
+        });
+      }
+    });
+  });
+
+  /* VIEW HISTORY */
+  const viewHistory = () => {
+    if (reformattedData[name]) {
+      setHistory(reformattedData[name]);
+    }
+  };
+
+  const historyList =
+    history && history.map((workout) => <History data={history} />);
+
   /* EXERCISE LIST */
   const exerciseList = data.map((exerciseGroup) => (
     <optgroup label={exerciseGroup.type}>
@@ -73,14 +102,8 @@ const Exercise = ({ name, setCount }) => {
   return (
     <>
       <div className="exercise-container">
-        {/* <label htmlFor="name-field" className="exercise-name">
-          <input
-            placeholder="Exercies"
-            // value={TO-ADD}
-            // onChange={(e) => set...(e.target.value)}
-          />
-        </label> */}
         <select className="exercise-dropdown" value={name}>
+          <option value="Select an option">Select an option</option>
           {exerciseList}
         </select>
         <table className="exercise-table">
@@ -97,10 +120,13 @@ const Exercise = ({ name, setCount }) => {
             <button className="exercise-table-add-btn" onClick={() => addSet()}>
               Add Set
             </button>
-            <button className="exercise-table-his-btn">Historical</button>
+            <button className="exercise-table-his-btn" onClick={viewHistory}>
+              History
+            </button>
             <button className="exercise-table-graph-btn">Graph</button>
           </div>
         </table>
+        <History history={history} />
       </div>
     </>
   );
