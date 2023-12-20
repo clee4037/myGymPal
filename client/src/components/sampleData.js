@@ -313,6 +313,320 @@ var data = [
       },
     ],
   },
+  {
+    workout_id: 7,
+    routine: "Chest",
+    date: "12/5/23",
+    exercises: [
+      {
+        name: "Bench Press",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Fly",
+        data: [
+          {
+            reps: 6,
+            weight: 50,
+          },
+          {
+            reps: 8,
+            weight: 40,
+          },
+          {
+            reps: 10,
+            weight: 30,
+          },
+        ],
+      },
+      {
+        name: "Dips",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+      {
+        name: "Push-ups",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    workout_id: 8,
+    routine: "Back",
+    date: "12/4/23",
+    exercises: [
+      {
+        name: "Lat Pulldowns",
+        data: [
+          {
+            reps: 6,
+            weight: 175,
+          },
+          {
+            reps: 8,
+            weight: 160,
+          },
+          {
+            reps: 10,
+            weight: 145,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Rows",
+        data: [
+          {
+            reps: 6,
+            weight: 80,
+          },
+          {
+            reps: 8,
+            weight: 70,
+          },
+          {
+            reps: 10,
+            weight: 60,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    workout_id: 9,
+    routine: "Legs",
+    date: "12/3/23",
+    exercises: [
+      {
+        name: "Lat Pulldowns",
+        data: [
+          {
+            reps: 6,
+            weight: 175,
+          },
+          {
+            reps: 8,
+            weight: 160,
+          },
+          {
+            reps: 10,
+            weight: 145,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Rows",
+        data: [
+          {
+            reps: 6,
+            weight: 80,
+          },
+          {
+            reps: 8,
+            weight: 70,
+          },
+          {
+            reps: 10,
+            weight: 60,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    workout_id: 10,
+    routine: "Chest",
+    date: "12/2/23",
+    exercises: [
+      {
+        name: "Bench Press",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Fly",
+        data: [
+          {
+            reps: 6,
+            weight: 50,
+          },
+          {
+            reps: 8,
+            weight: 40,
+          },
+          {
+            reps: 10,
+            weight: 30,
+          },
+        ],
+      },
+      {
+        name: "Dips",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+      {
+        name: "Push-ups",
+        data: [
+          {
+            reps: 6,
+            weight: 225,
+          },
+          {
+            reps: 8,
+            weight: 205,
+          },
+          {
+            reps: 10,
+            weight: 185,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    workout_id: 11,
+    routine: "Back",
+    date: "12/11/23",
+    exercises: [
+      {
+        name: "Lat Pulldowns",
+        data: [
+          {
+            reps: 6,
+            weight: 175,
+          },
+          {
+            reps: 8,
+            weight: 160,
+          },
+          {
+            reps: 10,
+            weight: 145,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Rows",
+        data: [
+          {
+            reps: 6,
+            weight: 80,
+          },
+          {
+            reps: 8,
+            weight: 70,
+          },
+          {
+            reps: 10,
+            weight: 60,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    workout_id: 12,
+    routine: "Legs",
+    date: "12/10/23",
+    exercises: [
+      {
+        name: "Lat Pulldowns",
+        data: [
+          {
+            reps: 6,
+            weight: 175,
+          },
+          {
+            reps: 8,
+            weight: 160,
+          },
+          {
+            reps: 10,
+            weight: 145,
+          },
+        ],
+      },
+      {
+        name: "Dumbbell Rows",
+        data: [
+          {
+            reps: 6,
+            weight: 80,
+          },
+          {
+            reps: 8,
+            weight: 70,
+          },
+          {
+            reps: 10,
+            weight: 60,
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default data;

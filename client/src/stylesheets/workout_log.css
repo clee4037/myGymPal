@@ -3,11 +3,13 @@
   display: flex;
   flex-flow: row wrap;
   justify-content: space-around;
+  align-content: space-between;
 }
 .workout-item-container {
   border: solid 1px black;
   display: flex;
   width: 30vw;
+  margin: 10px 0 10px 0;
 }
 .exercise-item {
   display: flex;

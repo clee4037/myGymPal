@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
+import Exercise from "./Exercise";
+import "../stylesheets/exercise.css";
 
 const Workout = () => {
   return (
@@ -22,6 +24,8 @@ const Workout = () => {
             // onChange={(e) => set...(e.target.value)}
           />
         </label>
+        <button>Add Exercise</button>
+        <Exercise />
       </div>
     </>
   );
