@@ -3,43 +3,62 @@ import data from "./exerciseData";
 const Exercise = ({ name, setCount }) => {
   const [sets, setSets] = useState(null);
 
-  const newSet = (
-    <tr key={sets ? sets.length + 1 : 1}>
-      <th scope="row">{sets ? sets.length + 1 : 1}</th>
-      <td>
-        <label
-          placeholder="Add Weight"
-          htmlFor="weight-field"
-          className="exercies-weight"
-        >
-          <input />
-        </label>
-      </td>
-      <td>
-        <label
-          htmlFor="rep-field"
-          className="exercise-rep"
-          placeholder="Add Reps"
-        >
-          <input />
-        </label>
-      </td>
-      <td>
-        <label
-          htmlFor="notes-field"
-          className="exercies-notes"
-          placeholder="Add Notes"
-        >
-          <input />
-        </label>
-      </td>
-    </tr>
-  );
+  const newSet = (count) => {
+    let setCount;
+    if (count) {
+      setCount = count + 1;
+    } else if (sets) {
+      console.log(sets.length);
+      setCount = sets.length + 1;
+    } else {
+      setCount = 1;
+    }
+    return (
+      <tr key={setCount}>
+        <th scope="row">{setCount}</th>
+        <td>
+          <label
+            placeholder="Add Weight"
+            htmlFor="weight-field"
+            className="exercies-weight"
+          >
+            <input />
+          </label>
+        </td>
+        <td>
+          <label
+            htmlFor="rep-field"
+            className="exercise-rep"
+            placeholder="Add Reps"
+          >
+            <input />
+          </label>
+        </td>
+        <td>
+          <label
+            htmlFor="notes-field"
+            className="exercies-notes"
+            placeholder="Add Notes"
+          >
+            <input />
+          </label>
+        </td>
+      </tr>
+    );
+  };
 
   useEffect(() => (setCount ? addSet(setCount) : addSet(1)), [data, setCount]);
 
   const addSet = (count) => {
-    sets ? setSets([...sets, newSet]) : setSets([newSet]);
+    const addedSets = [];
+    if (count) {
+      for (let i = 0; i < count; i++) {
+        addedSets.push(newSet(i));
+      }
+    } else {
+      addedSets.push(newSet());
+    }
+    sets ? setSets([...sets, addedSets]) : setSets(addedSets);
   };
 
   /* EXERCISE LIST */
