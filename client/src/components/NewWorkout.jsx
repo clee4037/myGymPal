@@ -3,7 +3,7 @@ import axios from "axios";
 import Exercise from "./Exercise";
 import "../stylesheets/exercise.css";
 
-const NewWorkout = () => {
+const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState(null);
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
@@ -56,6 +56,7 @@ const NewWorkout = () => {
       body.exercises = newExercises;
       console.log(body);
       await axios.post("http://localhost:3000/workout", body);
+      updatePage("log");
     } catch (err) {
       console.error(err);
     }
