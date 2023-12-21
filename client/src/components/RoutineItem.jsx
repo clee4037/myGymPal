@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 
 const RoutineItem = ({ data }) => {
   return (
@@ -6,7 +6,7 @@ const RoutineItem = ({ data }) => {
       <h3>{data.name}</h3>
       <div>
         {data.data.map((exercise) => (
-          <div>
+          <div key={data._id + exercise.exercise}>
             {exercise.sets}x {exercise.exercise}
           </div>
         ))}

@@ -1,8 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-import WorkoutLog from "./WorkoutLog";
-import exercise from "./exerciseData";
-// import routines from "./routineData";
 import RoutineItem from "./RoutineItem";
 
 const Routines = () => {
@@ -10,7 +7,6 @@ const Routines = () => {
   const getRoutines = async () => {
     try {
       const response = await axios.get("http://localhost:3000/routine");
-      console.log(response.data);
       setRoutines(response.data);
     } catch (err) {
       console.error(err);
@@ -29,7 +25,7 @@ const Routines = () => {
       <h3>Routines</h3>
       <button onClick={() => addRoutine()}>Add Routine</button>
       {routines.map((routine) => (
-        <RoutineItem data={routine} />
+        <RoutineItem data={routine} key={routine._id} />
       ))}
     </>
   );
