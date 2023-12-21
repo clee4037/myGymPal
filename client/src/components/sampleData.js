@@ -121,7 +121,7 @@ var data = [
     date: "12/17/23",
     exercises: [
       {
-        name: "Lat Pulldowns",
+        name: "Squats",
         data: [
           {
             reps: 6,
@@ -138,7 +138,7 @@ var data = [
         ],
       },
       {
-        name: "Dumbbell Rows",
+        name: "Lunges",
         data: [
           {
             reps: 6,

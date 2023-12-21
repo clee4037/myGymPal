@@ -5,6 +5,7 @@ import historyData from "./sampleData";
 const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
+  const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
   const newSet = (count) => {
     let setCount;
@@ -131,9 +132,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
 
   /* VIEW HISTORY */
   const viewHistory = () => {
-    if (reformattedData[name]) {
-      setHistory(reformattedData[name]);
-    }
+    setIsHistoryVisible(!isHistoryVisible);
   };
 
   const historyList =
@@ -173,13 +172,19 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             <button className="exercise-table-add-btn" onClick={() => addSet()}>
               Add Set
             </button>
-            <button className="exercise-table-his-btn" onClick={viewHistory}>
+            <button
+              className="exercise-table-his-btn"
+              onClick={() => viewHistory()}
+            >
               History
             </button>
             <button className="exercise-table-graph-btn">Graph</button>
           </div>
         </table>
-        <History history={history} />
+        {isHistoryVisible && <History history={reformattedData[name]} />}
+        {isHistoryVisible && !reformattedData[name] && (
+          <p>No history for this exercise</p>
+        )}
       </div>
     </>
   );

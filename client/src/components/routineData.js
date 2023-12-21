@@ -7,11 +7,11 @@ var data = [
         sets: 3,
       },
       {
-        exercise: "Incline Dumbbell Press",
+        exercise: "Dips",
         sets: 3,
       },
       {
-        exercise: "Dumbbell Flies",
+        exercise: "Dumbbell Fly",
         sets: 3,
       },
     ],
@@ -24,7 +24,7 @@ var data = [
         sets: 3,
       },
       {
-        exercise: "Cable Rows",
+        exercise: "Dumbbell Rows",
         sets: 3,
       },
       {
