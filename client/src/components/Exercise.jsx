@@ -5,6 +5,9 @@ import historyData from "./sampleData";
 const Exercise = ({ name, setCount }) => {
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
+  const [exerciseData, setExerciseData] = useState({});
+
+  console.log(exerciseData);
 
   const newSet = (count) => {
     let setCount;
@@ -24,7 +27,22 @@ const Exercise = ({ name, setCount }) => {
             htmlFor="weight-field"
             className="exercies-weight"
           >
-            <input />
+            <input
+              type="number"
+              value={
+                exerciseData[setCount] &&
+                exerciseData[setCount].weight &&
+                exerciseData[setCount].weight
+              }
+              onChange={(e) => {
+                if (!exerciseData[setCount]) {
+                  exerciseData[setCount] = {};
+                }
+                const updatedState = exerciseData;
+                updatedState[setCount].weight = Number(e.target.value);
+                setExerciseData(updatedState);
+              }}
+            />
           </label>
         </td>
         <td>
@@ -33,7 +51,22 @@ const Exercise = ({ name, setCount }) => {
             className="exercise-rep"
             placeholder="Add Reps"
           >
-            <input />
+            <input
+              type="number"
+              value={
+                exerciseData[setCount] &&
+                exerciseData[setCount].reps &&
+                exerciseData[setCount].reps
+              }
+              onChange={(e) => {
+                if (!exerciseData[setCount]) {
+                  exerciseData[setCount] = {};
+                }
+                const updatedState = exerciseData;
+                updatedState[setCount].reps = Number(e.target.value);
+                setExerciseData(updatedState);
+              }}
+            />
           </label>
         </td>
         <td>
@@ -42,7 +75,22 @@ const Exercise = ({ name, setCount }) => {
             className="exercies-notes"
             placeholder="Add Notes"
           >
-            <input />
+            <input
+              type="text"
+              value={
+                exerciseData[setCount] &&
+                exerciseData[setCount].notes &&
+                exerciseData[setCount].notes
+              }
+              onChange={(e) => {
+                if (!exerciseData[setCount]) {
+                  exerciseData[setCount] = {};
+                }
+                const updatedState = exerciseData;
+                updatedState[setCount].notes = e.target.value;
+                setExerciseData(updatedState);
+              }}
+            />
           </label>
         </td>
       </tr>

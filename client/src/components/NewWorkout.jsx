@@ -6,6 +6,7 @@ import "../stylesheets/exercise.css";
 const NewWorkout = () => {
   const [exercises, setExercises] = useState(null);
   const [routine, setRoutine] = useState(null);
+  const [workoutData, setWorkoutData] = useState(null);
   const chooseRoutine = (e) => {
     const selectedRoutine = data.find(
       (routine) => routine.name === e.target.value
