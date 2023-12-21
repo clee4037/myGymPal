@@ -72,7 +72,9 @@ const NewWorkout = () => {
           {/* <option value="New Workout">New Workout</option> */}
           {allRoutines &&
             allRoutines.map((routine) => (
-              <option value={routine.name}>{routine.name}</option>
+              <option value={routine.name} key={routine._id}>
+                {routine.name}
+              </option>
             ))}
         </select>
         <label htmlFor="date-field" className="workout-date">

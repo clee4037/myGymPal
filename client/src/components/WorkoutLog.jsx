@@ -14,10 +14,10 @@ const WorkoutLog = ({ updatePage }) => {
       console.error(err);
     }
   };
+
   useEffect(() => {
     getWorkoutData();
   }, []);
-
   return (
     <div className="workout-container">
       <div className="workout-header">
@@ -27,7 +27,7 @@ const WorkoutLog = ({ updatePage }) => {
       <div className="workout-log">
         {workouts &&
           workouts.map((workout) => (
-            <WorkoutLogItem workout={workout} key={workout.workout_id} />
+            <WorkoutLogItem workout={workout} key={workout._id} />
           ))}
       </div>
     </div>
