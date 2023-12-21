@@ -13,6 +13,7 @@ function App() {
   };
   return (
     <div className="App">
+      <h1>MyWorkoutPal</h1>
       <NavBar currentPage={page} updatePage={updatePage} />
       {page === "routine" && <Routines />}
       {page === "workout" && <NewWorkout updatePage={updatePage} />}

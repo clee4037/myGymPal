@@ -10,7 +10,6 @@ const NavBar = ({ currentPage, updatePage }) => {
   };
   return (
     <>
-      <h3>Navigation Bar</h3>
       {hiddenButton !== "log" && (
         <button
           onClick={() => {
