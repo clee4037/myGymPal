@@ -1,11 +1,10 @@
-const { User, Routine, Workout, Exercise } = require("./db");
+const { Routine, Workout, Exercise } = require("./db");
 
 module.exports = {
   getWorkouts: async (req, res) => {
     try {
-      console.log("successful", all);
-      const all = await Workout.find();
-      res.send(all);
+      const result = await Workout.find({});
+      res.send(result);
     } catch (err) {
       console.error(err);
     }
@@ -27,9 +26,23 @@ module.exports = {
     }
   },
   getHistory: async (req, res) => {
-    const { name } = req.params;
+    // const { name } = req.params;
     try {
-      const history = await Exercise.find({ name });
+      /* CAN'T FIGURE THIS OUT RN */
+      const name = "Bench Press";
+      const all = await Workout.find({});
+      const history = [];
+      for (let i = 0; i < all.length; i++) {
+        const routine = all[i];
+        for (let j = 0; j < routine.exercises.length; j++) {
+          const exercise = routine.exercises[j];
+          if (exercise.name === name) {
+            let record = { date: routine.date };
+            record = { ...record, ...exercise };
+            history.push(record);
+          }
+        }
+      }
       res.send(history);
     } catch (err) {
       console.error(err);

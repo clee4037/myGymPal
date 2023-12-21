@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+// import axios from "axios";
 import Exercise from "./Exercise";
 import data from "./routineData";
 import "../stylesheets/exercise.css";
@@ -10,13 +10,13 @@ const NewWorkout = () => {
   const [workoutData, setWorkoutData] = useState({});
 
   const sendWorkoutData = async () => {
-    try {
-      await axios.post("/workout", workoutData);
-      console.log("Workout Logged");
-    } catch (err) {
-      console.error(err);
-    }
-    return null;
+    // try {
+    //   await axios.post("/workout", workoutData);
+    //   console.log("Workout Logged");
+    // } catch (err) {
+    //   console.error(err);
+    // }
+    // return null;
   };
 
   const addWorkoutData = (name, data) => {

@@ -4,7 +4,7 @@ require("dotenv").config();
 
 router.get("/workout", controllers.getWorkouts);
 router.get("/exercise", controllers.getExercises);
-router.get("/exercise/history", controllers.getHistory);
+router.get("/workout/history", controllers.getHistory);
 router.get("/routine", controllers.getRoutine);
 router.post("/workout", controllers.addWorkout);
 

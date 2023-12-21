@@ -1,29 +1,31 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const userSchema = new mongoose.Schema({
-  username: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  email: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  password: {
-    type: String,
-    required: true,
-  },
+mongoose.connect(`mongodb://localhost:27017/Gym`, {});
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "connection error:"));
+db.once("open", function () {
+  console.log(`Connected to MongoDB`);
 });
 
+// const userSchema = new mongoose.Schema({
+//   username: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//   },
+//   email: {
+//     type: String,
+//     required: true,
+//     unique: true,
+//   },
+//   password: {
+//     type: String,
+//     required: true,
+//   },
+// });
+
 const routineSchema = new mongoose.Schema({
-  // user_id: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
   name: {
     type: String,
     required: true,
@@ -32,6 +34,7 @@ const routineSchema = new mongoose.Schema({
     {
       exercise: {
         type: String,
+        ref: "Exercise", // Reference to the Exercise model
         required: true,
       },
       sets: {
@@ -42,29 +45,21 @@ const routineSchema = new mongoose.Schema({
   ],
 });
 const workoutSchema = new mongoose.Schema({
-  // user_id: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   ref: "User",
-  //   required: true,
-  // },
   date: {
     type: Date,
     default: Date.now,
     required: true,
   },
-  routine_id: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Routine",
-    required: true,
-  },
   routine: {
     type: String,
+    ef: "Routine",
     required: true,
   },
   exercises: [
     {
-      exercise_name: {
+      name: {
         type: String,
+        ref: "Exercise",
         required: true,
       },
       data: [
@@ -87,132 +82,143 @@ const workoutSchema = new mongoose.Schema({
 });
 
 const exerciseSchema = new mongoose.Schema({
-  // user_id: {
-  //   type: mongoose.Schema.Types.ObjectId,
-  //   required: true,
-  // },
-  exercise_id: {
-    type: Number,
-    required: true,
-  },
-  name: {
-    type: String,
-    required: true,
-  },
   type: {
     type: String,
     required: true,
   },
-  history: [
+  exercises: [
     {
-      workout_id: {
-        type: Number,
-        required: true,
-      },
-      date: {
-        type: Date,
-        required: true,
-      },
-      reps: {
-        type: Number,
-        required: true,
-      },
-      weight: {
-        type: Number,
-        required: true,
-      },
-      notes: {
+      name: {
         type: String,
         required: true,
       },
     },
   ],
 });
+
 const Routine = mongoose.model("Routine", routineSchema);
 const Workout = mongoose.model("Workout", workoutSchema);
 const Exercise = mongoose.model("Exercise", exerciseSchema);
-const User = mongoose.model("User", userSchema); // depri
+// const User = mongoose.model("User", userSchema); // depri
 
 module.exports = {
-  User,
+  // User,
   Routine,
   Workout,
   Exercise,
 };
 
-mongoose.connect(`mongodb://localhost:27017/Gym`, {}).then(async () => {
-  console.log("Connected to MongoDB");
-  const dataToInsert = [
-    {
-      name: "Nat's Chad Chest Day",
-      data: [
-        {
-          exercise: "Bench Press",
-          sets: 3,
-        },
-        {
-          exercise: "Dips",
-          sets: 3,
-        },
-        {
-          exercise: "Dumbbell Fly",
-          sets: 3,
-        },
-      ],
-    },
-    {
-      name: "Uncle J's Back Day",
-      data: [
-        {
-          exercise: "Lat Pulldowns",
-          sets: 3,
-        },
-        {
-          exercise: "Dumbbell Rows",
-          sets: 3,
-        },
-        {
-          exercise: "Dumbbell Curls",
-          sets: 3,
-        },
-      ],
-    },
-    {
-      name: "Kevin's Leg Day",
-      data: [
-        {
-          exercise: "Squats",
-          sets: 3,
-        },
-        {
-          exercise: "Lunges",
-          sets: 3,
-        },
-        {
-          exercise: "Deadlifts",
-          sets: 3,
-        },
-      ],
-    },
-  ];
-  const get = await Routine.find();
-  console.log(get);
-  // Routine.insertMany(dataToInsert)
-  //   .then((result) => {
-  //     console.log(`${result.length} documents inserted.`);
-  //   })
-  //   .catch((err) => {
-  //     console.error("Error during bulk insert:", err);
-  //   })
-  //   .finally(() => {
-  //     // Close the connection
-  //     mongoose
-  //       .disconnect()
-  //       .then(() => {
-  //         console.log("Connection to MongoDB closed");
-  //       })
-  //       .catch((err) => {
-  //         console.error("Error closing connection:", err);
-  //       });
-  //   });
-});
+// /* EXERCISE */
+// var exercise_data = [
+//   {
+//     type: "Abs",
+//     exercises: [
+//       { name: "Crunches" },
+//       { name: "Leg Raises" },
+//       { name: "Ab Wheel" },
+//     ],
+//   },
+//   {
+//     type: "Back",
+//     exercises: [
+//       { name: "Barbell Row" },
+//       { name: "Pull-ups" },
+//       { name: "Lat Pulldowns" },
+//       { name: "Cable Rows" },
+//     ],
+//   },
+//   {
+//     type: "Biceps",
+//     exercises: [
+//       { name: "Cable Curls" },
+//       { name: "Dumbbell Curls" },
+//       { name: "Hammer Curls" },
+//     ],
+//   },
+//   {
+//     type: "Chest",
+//     exercises: [
+//       { name: "Bench Press" },
+//       { name: "Dumbbell Press" },
+//       { name: "Incline Dumbbell Press" },
+//       { name: "Dumbbell Flies" },
+//     ],
+//   },
+//   {
+//     type: "Legs",
+//     exercises: [{ name: "Deadlifts" }, { name: "Squats" }, { name: "Lunges" }],
+//   },
+//   {
+//     type: "Shoulders",
+//     exercises: [
+//       { name: "Dumbbell Press" },
+//       { name: "Dumbbell Side Laterals" },
+//       { name: "Barbell Shoulder Press" },
+//       { name: "Face Pulls" },
+//     ],
+//   },
+// ];
+
+// /* Routine */
+// var data = [
+//   {
+//     name: "Nat's Chad Chest Day",
+//     data: [
+//       {
+//         // exercise_id: "6583ea8849520232f991bda9",
+//         exercise: "Bench Press",
+//         sets: 3,
+//       },
+//       {
+//         // exercise_id: "6583ea8849520232f991bdaa",
+//         exercise: "Dumbbell Press",
+//         sets: 3,
+//       },
+//       {
+//         exercise_id: "6583ea8849520232f991bdab",
+//         exercise: "Dumbbell Fly",
+//         sets: 3,
+//       },
+//     ],
+//   },
+//   {
+//     name: "Uncle J's Back Day",
+//     data: [
+//       {
+//         exercise_id: "6583ea8849520232f991bda2",
+//         exercise: "Lat Pulldowns",
+//         sets: 3,
+//       },
+//       {
+//         exercise_id: "6583ea8849520232f991bda3",
+//         exercise: "Cable Rows",
+//         sets: 3,
+//       },
+//       {
+//         exercise_id: "6583ea8849520232f991bda6",
+//         exercise: "Dumbbell Curls",
+//         sets: 3,
+//       },
+//     ],
+//   },
+//   {
+//     name: "Kevin's Leg Day",
+//     data: [
+//       {
+//         exercise_id: "6583ea8849520232f991bdaf",
+//         exercise: "Squats",
+//         sets: 3,
+//       },
+//       {
+//         exercise_id: "6583ea8849520232f991bdb0",
+//         exercise: "Lunges",
+//         sets: 3,
+//       },
+//       {
+//         exercise_id: "6583ea8849520232f991bdae",
+//         exercise: "Deadlifts",
+//         sets: 3,
+//       },
+//     ],
+//   },
+// ];
