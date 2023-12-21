@@ -6,23 +6,40 @@ import "../stylesheets/exercise.css";
 const NewWorkout = () => {
   const [exercises, setExercises] = useState(null);
   const [routine, setRoutine] = useState(null);
-  const [workoutData, setWorkoutData] = useState(null);
+  const [workoutData, setWorkoutData] = useState({});
+  console.log(workoutData);
+
+  const addWorkoutData = (name, data) => {
+    const updatedState = workoutData;
+    updatedState[name] = data;
+    setWorkoutData(updatedState);
+  };
+
   const chooseRoutine = (e) => {
     const selectedRoutine = data.find(
       (routine) => routine.name === e.target.value
     );
     setRoutine(selectedRoutine);
-
+    workoutData.routine = selectedRoutine.name;
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
-      <Exercise name={exercise} setCount={sets} />
+      <Exercise
+        name={exercise}
+        setCount={sets}
+        addWorkoutData={addWorkoutData}
+      />
     ));
     setExercises(exercises);
   };
+
   const addExercise = () => {
     exercises
-      ? setExercises([...exercises, <Exercise />])
-      : setExercises([<Exercise />]);
+      ? setExercises([
+          ...exercises,
+          <Exercise addWorkoutData={addWorkoutData} />,
+        ])
+      : setExercises([<Exercise addWorkoutData={addWorkoutData} />]);
   };
+
   return (
     <>
       <h3>Workout</h3>

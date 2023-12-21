@@ -2,13 +2,10 @@ import React, { useState, useEffect } from "react";
 import History from "./History";
 import data from "./exerciseData";
 import historyData from "./sampleData";
-const Exercise = ({ name, setCount }) => {
+const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
   const [exerciseData, setExerciseData] = useState({});
-
-  console.log(exerciseData);
-
   const newSet = (count) => {
     let setCount;
     if (count) {
@@ -38,8 +35,10 @@ const Exercise = ({ name, setCount }) => {
                 if (!exerciseData[setCount]) {
                   exerciseData[setCount] = {};
                 }
+                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
                 updatedState[setCount].weight = Number(e.target.value);
+                addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}
             />
@@ -65,6 +64,7 @@ const Exercise = ({ name, setCount }) => {
                 const updatedState = exerciseData;
                 updatedState[setCount].reps = Number(e.target.value);
                 setExerciseData(updatedState);
+                // addWorkoutData(name, updatedState);
               }}
             />
           </label>
@@ -89,6 +89,7 @@ const Exercise = ({ name, setCount }) => {
                 const updatedState = exerciseData;
                 updatedState[setCount].notes = e.target.value;
                 setExerciseData(updatedState);
+                // addWorkoutData(name, updatedState);
               }}
             />
           </label>
@@ -150,7 +151,11 @@ const Exercise = ({ name, setCount }) => {
   return (
     <>
       <div className="exercise-container">
-        <select className="exercise-dropdown" value={name}>
+        <select
+          className="exercise-dropdown"
+          value={name}
+          onChange={(e) => (name = e.target.value)}
+        >
           <option value="Select an option">Select an option</option>
           {exerciseList}
         </select>
