@@ -1,12 +1,15 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import History from "./History";
-import data from "./exerciseData";
 import historyData from "./sampleData";
 const Exercise = ({ name, setCount, addWorkoutData }) => {
+  const [exerciseName, setExerciseName] = useState(null);
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState({});
+  const [allExercises, setAllExercises] = useState(null);
+  // console.log(name, setCount, addWorkoutData);
   const newSet = (count) => {
     let setCount;
     if (count) {
@@ -16,6 +19,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     } else {
       setCount = 1;
     }
+
     return (
       <tr key={setCount}>
         <th scope="row">{setCount}</th>
@@ -99,8 +103,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     );
   };
 
-  useEffect(() => (setCount ? addSet(setCount) : addSet(1)), [data, setCount]);
-
   const addSet = (count) => {
     const addedSets = [];
     if (count) {
@@ -111,6 +113,16 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
       addedSets.push(newSet());
     }
     sets ? setSets([...sets, addedSets]) : setSets(addedSets);
+  };
+
+  /* GET HISTORY */
+  const getWorkoutData = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/workout");
+      // setWorkouts(response.data);
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   /* REFORMAT DATA -- ORDER BY EXERCISE | WILL MOVE TO PARENT SO TRANSFORMATION ONLY DONE ONCE */
@@ -139,25 +151,50 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     history && history.map((workout) => <History data={history} />);
 
   /* EXERCISE LIST */
-  const exerciseList = data.map((exerciseGroup) => (
-    <optgroup label={exerciseGroup.type}>
-      {exerciseGroup.exercises.map((exercise) => (
-        <option value={exercise}>{exercise}</option>
-      ))}
-    </optgroup>
-  ));
+  const getExerciseList = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/exercise");
+      setAllExercises(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const exerciseList =
+    allExercises &&
+    allExercises.map((exerciseGroup) => (
+      <optgroup label={exerciseGroup.type} key={exerciseGroup._id}>
+        {exerciseGroup.exercises.map((exercise) => (
+          <option value={exercise} key={exercise._id}>
+            {exercise.name}
+          </option>
+        ))}
+      </optgroup>
+    ));
+
+  useEffect(() => {
+    setCount ? addSet(setCount) : addSet(1);
+    getExerciseList();
+    setExerciseName(name);
+  }, [setCount]);
 
   return (
     <>
       <div className="exercise-container">
-        <select
-          className="exercise-dropdown"
-          value={name}
-          onChange={(e) => (name = e.target.value)}
-        >
-          <option value="Select an option">Select an option</option>
-          {exerciseList}
-        </select>
+        <h3>{exerciseName}</h3>
+        {/* NOT DEFAULTING TO EXERCISE NAME :( */}
+        {!exerciseName && (
+          <select
+            className="exercise-dropdown"
+            value={exerciseName}
+            onChange={(e) => {
+              setExerciseName(e.target.text);
+            }}
+          >
+            <option value="Select an option">Select an option</option>
+            {exerciseList}
+          </select>
+        )}
+
         <table className="exercise-table">
           <thead>
             <tr>
@@ -168,19 +205,20 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             </tr>
           </thead>
           <tbody>{sets && sets}</tbody>
-          <div className="exercise-table-button-row">
-            <button className="exercise-table-add-btn" onClick={() => addSet()}>
-              Add Set
-            </button>
-            <button
-              className="exercise-table-his-btn"
-              onClick={() => viewHistory()}
-            >
-              History
-            </button>
-            <button className="exercise-table-graph-btn">Graph</button>
-          </div>
         </table>
+        <div className="exercise-table-button-row">
+          <button className="exercise-table-add-btn" onClick={() => addSet()}>
+            Add Set
+          </button>
+          <button
+            className="exercise-table-his-btn"
+            onClick={() => viewHistory()}
+          >
+            History
+          </button>
+          <button className="exercise-table-graph-btn">Graph</button>
+        </div>
+
         {isHistoryVisible && <History history={reformattedData[name]} />}
         {isHistoryVisible && !reformattedData[name] && (
           <p>No history for this exercise</p>

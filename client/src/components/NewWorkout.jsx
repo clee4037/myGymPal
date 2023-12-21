@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Exercise from "./Exercise";
-import data from "./routineData";
 import "../stylesheets/exercise.css";
 
 const NewWorkout = () => {
@@ -9,7 +8,8 @@ const NewWorkout = () => {
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-
+  console.log(workoutData);
+  /* POST / COMPLETE WORKOUT */
   const sendWorkoutData = async () => {
     // try {
     //   const response = await axios.get("http://localhost:3000/workout");
@@ -18,13 +18,13 @@ const NewWorkout = () => {
     //   console.error(err);
     // }
   };
-
   const addWorkoutData = (name, data) => {
     const updatedState = workoutData;
     updatedState[name] = data;
     setWorkoutData(updatedState);
   };
 
+  /* GET ROUTINES */
   const getRoutines = async () => {
     try {
       const response = await axios.get("http://localhost:3000/routine");
@@ -38,10 +38,11 @@ const NewWorkout = () => {
     getRoutines();
   }, []);
 
+  /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
-    const selectedRoutine = data.find(
-      (routine) => routine.name === e.target.value
-    );
+    const selectedRoutine =
+      allRoutines &&
+      allRoutines.find((routine) => routine.name === e.target.value);
     setRoutine(selectedRoutine);
     workoutData.routine = selectedRoutine.name;
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
@@ -49,12 +50,14 @@ const NewWorkout = () => {
         name={exercise}
         setCount={sets}
         addWorkoutData={addWorkoutData}
+        key={exercise + sets}
       />
     ));
     setExercises(exercises);
   };
 
   const addExercise = () => {
+    console.log("Click");
     exercises
       ? setExercises([
           ...exercises,
@@ -62,7 +65,7 @@ const NewWorkout = () => {
         ])
       : setExercises([<Exercise addWorkoutData={addWorkoutData} />]);
   };
-
+  console.log(exercises);
   return (
     <>
       <h3>Workout</h3>
