@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
 import axios from "axios";
-// import data from "./sampleData";
 import WorkoutLogItem from "./WorkoutLogItem";
 import "../stylesheets/workout_log.css";
 
