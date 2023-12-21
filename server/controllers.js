@@ -3,7 +3,7 @@ const { Routine, Workout, Exercise } = require("./db");
 module.exports = {
   getWorkouts: async (req, res) => {
     try {
-      const result = await Workout.find({});
+      const result = await Workout.find({}).sort({ date: -1 });
       res.send(result);
     } catch (err) {
       console.error(err);
@@ -49,18 +49,10 @@ module.exports = {
     }
   },
   addWorkout: async (req, res) => {
-    const { user_id, exercise_id, name, date, reps, weight, notes } = req.body;
+    // console.log(req.body);
     try {
-      const newWorkout = await Workout.create({
-        user_id,
-        exercise_id,
-        name,
-        date,
-        reps,
-        weight,
-        notes,
-      });
-      res.send(newWorkout);
+      const newWorkout = await Workout.create(req.body);
+      res.sendStatus(200);
     } catch (err) {
       console.error(err);
     }

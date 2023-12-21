@@ -8,23 +8,73 @@ const NewWorkout = () => {
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-  console.log(workoutData);
+
+  const validator = () => {
+    const body = { ...workoutData, exercises: [] };
+    if (workoutData.date) {
+      alert("Please select a date");
+      return false;
+    }
+    const keys = Object.keys(workoutData);
+
+    // for (let i = 0; i < keys.length; i++) {
+    //   if (keys[i] !== "routine" || keys[i] !== "date") {
+    //     console.log(keys[i]);
+
+    //     const exerciseData = body[keys[i]];
+    //     console.log("ex", exerciseData);
+    //     const transformedData = [];
+    //     const setNumber = Object.keys(exerciseData);
+    //     console.log("set count", setNumber);
+    //     for (let j = 1; j < setNumber.length; j++) {
+    //       const setData = exerciseData[setNumber[j]];
+    //       if (!setData.weight || !setData.reps) {
+    //         alert("Missing weight or reps");
+    //         return false;
+    //       }
+    //       transformedData.push({ reps: setData.reps, weight: setData.weight });
+    //     }
+    //     body.exercises.push({ name: keys[i], ...transformedData });
+    //     delete body[keys[i]];
+    //     console.log(body);
+    //   }
+    // }
+
+    return true;
+  };
+
   /* POST / COMPLETE WORKOUT */
   const sendWorkoutData = async () => {
-    // try {
-    //   const response = await axios.get("http://localhost:3000/workout");
-    //   console.log(response.data);
-    // } catch (err) {
-    //   console.error(err);
-    // }
+    try {
+      const body = workoutData;
+      let exKeys = Object.keys(body.exercises);
+      const newExercises = [];
+      for (let i = 0; i < exKeys.length; i++) {
+        newExercises.push(body.exercises[exKeys[i]]);
+        console.log(newExercises);
+      }
+      body.exercises = newExercises;
+      console.log(body);
+      await axios.post("http://localhost:3000/workout", body);
+    } catch (err) {
+      console.error(err);
+    }
   };
+
+  /* EXERCISE DATA FROM EXERCISE CHILD COMP*/
   const addWorkoutData = (name, data) => {
     const updatedState = workoutData;
-    updatedState[name] = data;
+    if (!updatedState.exercises) {
+      updatedState.exercises = {};
+    }
+    if (!updatedState.exercises[name]) {
+      updatedState.exercises[name] = { name, data };
+    }
+
     setWorkoutData(updatedState);
   };
 
-  /* GET ROUTINES */
+  /* GET ALL ROUTINES FOR DROPDOWN */
   const getRoutines = async () => {
     try {
       const response = await axios.get("http://localhost:3000/routine");
@@ -56,6 +106,7 @@ const NewWorkout = () => {
     setExercises(exercises);
   };
 
+  /* ADD Exercise */
   const addExercise = () => {
     console.log("Click");
     exercises
@@ -65,7 +116,7 @@ const NewWorkout = () => {
         ])
       : setExercises([<Exercise addWorkoutData={addWorkoutData} />]);
   };
-  console.log(exercises);
+
   return (
     <>
       <h3>Workout</h3>

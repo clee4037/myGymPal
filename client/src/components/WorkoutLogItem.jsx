@@ -16,8 +16,9 @@ const WorkoutLogItem = ({ workout }) => {
         <h3 className="workout-item-routine">{workout.routine}</h3>
         {workout.exercises.map((exercise) => (
           <div className="exercise-item" key={exercise.name}>
-            <div className="exercise-sets">{exercise.data.length}x</div>
-            <div className="exercise-name">{exercise.name}</div>
+            <div className="exercise-sets">
+              {exercise.data.length}x {exercise.name}
+            </div>
           </div>
         ))}
       </div>

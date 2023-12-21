@@ -7,9 +7,11 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
-  const [exerciseData, setExerciseData] = useState({});
+  const [exerciseData, setExerciseData] = useState([]);
+
   const [allExercises, setAllExercises] = useState(null);
-  // console.log(name, setCount, addWorkoutData);
+  console.log("exerciseData", exerciseData);
+
   const newSet = (count) => {
     let setCount;
     if (count) {
@@ -32,17 +34,18 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             <input
               type="number"
               value={
-                exerciseData[setCount] &&
-                exerciseData[setCount].weight &&
-                exerciseData[setCount].weight
+                exerciseData[setCount - 1] &&
+                exerciseData[setCount - 1].weight &&
+                exerciseData[setCount - 1].weight
               }
               onChange={(e) => {
-                if (!exerciseData[setCount]) {
-                  exerciseData[setCount] = {};
+                if (!exerciseData[setCount - 1]) {
+                  exerciseData[setCount - 1] = {};
                 }
                 // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
-                updatedState[setCount].weight = Number(e.target.value);
+                updatedState[setCount - 1].weight = Number(e.target.value);
+                console.log("updatedState", updatedState);
                 addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}
@@ -58,18 +61,20 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             <input
               type="number"
               value={
-                exerciseData[setCount] &&
-                exerciseData[setCount].reps &&
-                exerciseData[setCount].reps
+                exerciseData[setCount - 1] &&
+                exerciseData[setCount - 1].reps &&
+                exerciseData[setCount - 1].reps
               }
               onChange={(e) => {
-                if (!exerciseData[setCount]) {
-                  exerciseData[setCount] = {};
+                if (!exerciseData[setCount - 1]) {
+                  exerciseData[setCount - 1] = {};
                 }
+                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
-                updatedState[setCount].reps = Number(e.target.value);
+                updatedState[setCount - 1].reps = Number(e.target.value);
+                console.log("updatedState", updatedState);
+                addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
-                // addWorkoutData(name, updatedState);
               }}
             />
           </label>
@@ -83,18 +88,20 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             <input
               type="text"
               value={
-                exerciseData[setCount] &&
-                exerciseData[setCount].notes &&
-                exerciseData[setCount].notes
+                exerciseData[setCount - 1] &&
+                exerciseData[setCount - 1].notes &&
+                exerciseData[setCount - 1].notes
               }
               onChange={(e) => {
-                if (!exerciseData[setCount]) {
-                  exerciseData[setCount] = {};
+                if (!exerciseData[setCount - 1]) {
+                  exerciseData[setCount - 1] = {};
                 }
+                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
-                updatedState[setCount].notes = e.target.value;
+                updatedState[setCount - 1].notes = e.target.value;
+                console.log("updatedState", updatedState);
+                addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
-                // addWorkoutData(name, updatedState);
               }}
             />
           </label>

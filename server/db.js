@@ -52,7 +52,7 @@ const workoutSchema = new mongoose.Schema({
   },
   routine: {
     type: String,
-    ef: "Routine",
+    ref: "Routine",
     required: true,
   },
   exercises: [
