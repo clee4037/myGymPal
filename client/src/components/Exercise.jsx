@@ -10,7 +10,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [exerciseData, setExerciseData] = useState([]);
 
   const [allExercises, setAllExercises] = useState(null);
-  console.log("exerciseData", exerciseData);
 
   const newSet = (count) => {
     let setCount;
@@ -123,39 +122,38 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   };
 
   /* GET HISTORY */
-  const getWorkoutData = async () => {
+  const reformattedData = {};
+  let historyList;
+  const getHistory = async () => {
     try {
       const response = await axios.get("http://localhost:3000/workout");
-      // setWorkouts(response.data);
+      // console.log("response.data", response.data);
+      response.data.forEach((workout) => {
+        workout.exercises.forEach((exercise) => {
+          if (!reformattedData[exercise.name]) {
+            reformattedData[exercise.name] = [
+              { date: workout.date, data: exercise.data },
+            ];
+          } else {
+            reformattedData[exercise.name].push({
+              date: workout.date,
+              data: exercise.data,
+            });
+          }
+        });
+      });
+      console.log("reformattedData", reformattedData);
+
+      setHistory(reformattedData);
     } catch (err) {
       console.error(err);
     }
   };
 
-  /* REFORMAT DATA -- ORDER BY EXERCISE | WILL MOVE TO PARENT SO TRANSFORMATION ONLY DONE ONCE */
-  const reformattedData = {};
-  historyData.forEach((workout) => {
-    workout.exercises.forEach((exercise) => {
-      if (!reformattedData[exercise.name]) {
-        reformattedData[exercise.name] = [
-          { date: workout.date, data: exercise.data },
-        ];
-      } else {
-        reformattedData[exercise.name].push({
-          date: workout.date,
-          data: exercise.data,
-        });
-      }
-    });
-  });
-
   /* VIEW HISTORY */
   const viewHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
   };
-
-  const historyList =
-    history && history.map((workout) => <History data={history} />);
 
   /* EXERCISE LIST */
   const getExerciseList = async () => {
@@ -182,6 +180,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     setCount ? addSet(setCount) : addSet(1);
     getExerciseList();
     setExerciseName(name);
+    getHistory();
   }, [setCount]);
 
   return (
@@ -226,8 +225,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           <button className="exercise-table-graph-btn">Graph</button>
         </div>
 
-        {isHistoryVisible && <History history={reformattedData[name]} />}
-        {isHistoryVisible && !reformattedData[name] && (
+        {isHistoryVisible && history && <History history={history[name]} />}
+        {isHistoryVisible && !history[name] && (
           <p>No history for this exercise</p>
         )}
       </div>

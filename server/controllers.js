@@ -30,20 +30,21 @@ module.exports = {
     try {
       /* CAN'T FIGURE THIS OUT RN */
       const name = "Bench Press";
-      const all = await Workout.find({});
-      const history = [];
-      for (let i = 0; i < all.length; i++) {
-        const routine = all[i];
-        for (let j = 0; j < routine.exercises.length; j++) {
-          const exercise = routine.exercises[j];
-          if (exercise.name === name) {
-            let record = { date: routine.date };
-            record = { ...record, ...exercise };
-            history.push(record);
-          }
-        }
-      }
-      res.send(history);
+      console.log("getHisory");
+      const all = await Workout.find({ "exercises.name": "Bench Press" });
+      // const history = [];
+      // for (let i = 0; i < all.length; i++) {
+      //   const routine = all[i];
+      //   for (let j = 0; j < routine.exercises.length; j++) {
+      //     const exercise = routine.exercises[j];
+      //     if (exercise.name === name) {
+      //       let record = { date: routine.date };
+      //       record = { ...record, ...exercise };
+      //       history.push(record);
+      //     }
+      //   }
+      // }
+      res.send(all);
     } catch (err) {
       console.error(err);
     }
