@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-// import axios from "axios";
+import axios from "axios";
 import Exercise from "./Exercise";
 import data from "./routineData";
 import "../stylesheets/exercise.css";
@@ -8,15 +8,15 @@ const NewWorkout = () => {
   const [exercises, setExercises] = useState(null);
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
+  const [allRoutines, setAllRoutines] = useState(null);
 
   const sendWorkoutData = async () => {
     // try {
-    //   await axios.post("/workout", workoutData);
-    //   console.log("Workout Logged");
+    //   const response = await axios.get("http://localhost:3000/workout");
+    //   console.log(response.data);
     // } catch (err) {
     //   console.error(err);
     // }
-    // return null;
   };
 
   const addWorkoutData = (name, data) => {
@@ -24,6 +24,19 @@ const NewWorkout = () => {
     updatedState[name] = data;
     setWorkoutData(updatedState);
   };
+
+  const getRoutines = async () => {
+    try {
+      const response = await axios.get("http://localhost:3000/routine");
+      setAllRoutines(response.data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  useEffect(() => {
+    getRoutines();
+  }, []);
 
   const chooseRoutine = (e) => {
     const selectedRoutine = data.find(
@@ -57,9 +70,10 @@ const NewWorkout = () => {
         <select className="workout-routine-dropdown" onChange={chooseRoutine}>
           <option value="">Select an option</option>
           {/* <option value="New Workout">New Workout</option> */}
-          {data.map((routine) => (
-            <option value={routine.name}>{routine.name}</option>
-          ))}
+          {allRoutines &&
+            allRoutines.map((routine) => (
+              <option value={routine.name}>{routine.name}</option>
+            ))}
         </select>
         <label htmlFor="date-field" className="workout-date">
           <input
