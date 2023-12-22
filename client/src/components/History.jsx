@@ -2,7 +2,6 @@ import React, { useRef, useState, useEffect } from "react";
 
 const History = ({ history }) => {
   /* WILL OPTMIZE LATER */
-
   const historyList =
     history &&
     history.map((item) => {
