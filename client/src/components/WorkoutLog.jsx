@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import WorkoutLogItem from "./WorkoutLogItem";
+import { IoAddCircleOutline } from "react-icons/io5";
 import "../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ updatePage }) => {
@@ -20,12 +21,12 @@ const WorkoutLog = ({ updatePage }) => {
   }, []);
   return (
     <div className="workout-container">
-      <div className="workout-header">
-        <h3 className="workout-title">Workout Log</h3>
-        {/* <Button size="sm" onClick={() => updatePage("workout")}>
-          New Workout
-        </Button> */}
-        <button onClick={() => updatePage("workout")}>New Workout</button>
+      <div className="workout-header flex flex-row pl-5 items-center">
+        <h2 className="workout-title text-left text-2xl">Workout Log </h2>
+        <IoAddCircleOutline
+          className="text-xl ml-2 cursor-pointer text-torq"
+          onClick={() => updatePage("workout")}
+        />
       </div>
       <div className="workout-log">
         {workouts &&

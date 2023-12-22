@@ -5,15 +5,14 @@
   align-content: space-between;
 }
 .workout-item-container {
-  border: solid 1px black;
   display: flex;
   width: 30vw;
   margin: 10px 0 10px 0;
-  border-radius: 3%;
-  border: 1px solid rgba(0, 0, 0, 0.15);
-  box-shadow: 1px 1px 1.5px;
-  transition: transform 0.1s ease-in-out;
 }
+.workout-item-container:hover {
+  transform: scale(1.01) rotate(-0.2deg);
+}
+
 .exercise-item {
   display: flex;
 }

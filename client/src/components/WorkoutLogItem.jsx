@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "../stylesheets/workout_log.css";
 
 const WorkoutLogItem = ({ workout }) => {
   const convertDate = () => {
@@ -52,7 +53,7 @@ const WorkoutLogItem = ({ workout }) => {
         <div className="justify-start pl-4">
           {workout.exercises.map((exercise) => (
             <div className="exercise-item" key={exercise.name}>
-              <div className="exercise-sets">
+              <div className="exercise-sets italic">
                 {exercise.data.length}x {exercise.name}
               </div>
             </div>

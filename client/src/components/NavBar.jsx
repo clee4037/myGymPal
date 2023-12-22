@@ -1,16 +1,10 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 
 const NavBar = ({ currentPage, updatePage }) => {
-  // const [hiddenButton, setHiddenButtons] = useState(null);
-  // useEffect(() => {
-  //   setHiddenButtons(currentPage);
-  // }, [currentPage]);
-  // const updateHiddenButton = (newButton) => {
-  //   setHiddenButtons(newButton);
-  // };
   return (
     <>
       <button
+        className="cursor-pointer"
         onClick={() => {
           updatePage("log");
         }}
@@ -19,6 +13,7 @@ const NavBar = ({ currentPage, updatePage }) => {
       </button>
       {" | "}
       <button
+        className="cursor-pointer"
         onClick={() => {
           updatePage("routine");
         }}
@@ -27,6 +22,7 @@ const NavBar = ({ currentPage, updatePage }) => {
       </button>
       {" | "}
       <button
+        className="cursor-pointer"
         onClick={() => {
           updatePage("stats");
         }}
@@ -35,6 +31,7 @@ const NavBar = ({ currentPage, updatePage }) => {
       </button>
       {" | "}
       <button
+        className="cursor-pointer"
         onClick={() => {
           updatePage("profile");
         }}
