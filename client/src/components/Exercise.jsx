@@ -32,6 +32,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           >
             <input
               type="number"
+              className=" w-full"
               value={
                 exerciseData[setCount - 1] &&
                 exerciseData[setCount - 1].weight &&
@@ -59,6 +60,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           >
             <input
               type="number"
+              className=" w-full"
               value={
                 exerciseData[setCount - 1] &&
                 exerciseData[setCount - 1].reps &&
@@ -85,6 +87,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             placeholder="Add Notes"
           >
             <input
+              className=" w-full"
               type="text"
               value={
                 exerciseData[setCount - 1] &&
@@ -213,15 +216,20 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           <tbody>{sets && sets}</tbody>
         </table>
         <div className="exercise-table-button-row">
-          <button className="exercise-table-add-btn" onClick={() => addSet()}>
-            Add Set
-          </button>
           <button
-            className="exercise-table-his-btn"
+            className="exercise-table-add-btn pr-1"
+            onClick={() => addSet()}
+          >
+            Add Set |
+          </button>
+
+          <button
+            className="exercise-table-his-btn pr-1"
             onClick={() => viewHistory()}
           >
-            History
+            History |
           </button>
+
           <button className="exercise-table-graph-btn">Graph</button>
         </div>
 

@@ -122,9 +122,11 @@ const NewWorkout = ({ updatePage }) => {
     <>
       <h3>Workout</h3>
       <div className="workout-header">
-        <select className="workout-routine-dropdown" onChange={chooseRoutine}>
+        <select
+          className="workout-routine-dropdown mr-4"
+          onChange={chooseRoutine}
+        >
           <option value="">Select an option</option>
-          {/* <option value="New Workout">New Workout</option> */}
           {allRoutines &&
             allRoutines.map((routine) => (
               <option value={routine.name} key={routine._id}>
