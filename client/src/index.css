@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 body {
-  padding: 2rem 0 2rem 0;
   font-family: "M PLUS Rounded 1c", sans-serif;
   background-color: #f2f2f7;
   color: black;
@@ -11,7 +10,8 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-input,
-select {
+
+select,
+input {
   background-color: white;
 }

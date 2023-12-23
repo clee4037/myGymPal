@@ -13,10 +13,7 @@ function App() {
   };
   return (
     <div className="App">
-      <h1 className="text-3xl font-bold underline text-torq pb-2">
-        MyWorkoutPal
-      </h1>
-      <NavBar currentPage={page} updatePage={updatePage} />
+      <NavBar className="mb-10" currentPage={page} updatePage={updatePage} />
       {page === "routine" && <Routines />}
       {page === "workout" && <NewWorkout updatePage={updatePage} />}
       {page === "log" && <WorkoutLog updatePage={updatePage} />}

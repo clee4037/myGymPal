@@ -24,7 +24,7 @@ const WorkoutLogItem = ({ workout }) => {
     });
   };
   aggregateData();
-  let emoji = {
+  const emoji = {
     1: "🥇",
     "Nat's Chad Chest Day": "💪🏼",
     "Uncle J's Back Day": "🔙",
@@ -55,7 +55,7 @@ const WorkoutLogItem = ({ workout }) => {
         </div>
       </div>
       <div className="justify-start pt-2 pl-4">
-        <h3 className="justify-start font-bold">
+        <h3 className="justify-start font-bold text-torq">
           {workout.routine} {emoji[workout.routine] || emoji[1]}
         </h3>
         <div className="justify-start pt-1 pl-4">

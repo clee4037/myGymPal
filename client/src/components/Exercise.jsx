@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import History from "./History";
-import historyData from "./sampleData";
 const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [exerciseName, setExerciseName] = useState(null);
   const [sets, setSets] = useState(null);
@@ -24,15 +23,16 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     return (
       <tr key={setCount}>
         <th scope="row">{setCount}</th>
-        <td>
+        <td className="border border-gray">
           <label
             placeholder="Add Weight"
             htmlFor="weight-field"
-            className="exercies-weight"
+            className="exercies-weight "
           >
             <input
               type="number"
-              className=" w-full"
+              // className="w-full bg-bg"
+              className="w-full"
               value={
                 exerciseData[setCount - 1] &&
                 exerciseData[setCount - 1].weight &&
@@ -52,7 +52,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
             />
           </label>
         </td>
-        <td>
+        <td className="border border-gray">
           <label
             htmlFor="rep-field"
             className="exercise-rep"
@@ -60,7 +60,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           >
             <input
               type="number"
-              className=" w-full"
+              // className="w-full bg-bg"
+              className="w-full"
               value={
                 exerciseData[setCount - 1] &&
                 exerciseData[setCount - 1].reps &&
@@ -70,24 +71,23 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
                 if (!exerciseData[setCount - 1]) {
                   exerciseData[setCount - 1] = {};
                 }
-                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
                 updatedState[setCount - 1].reps = Number(e.target.value);
-                console.log("updatedState", updatedState);
                 addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}
             />
           </label>
         </td>
-        <td>
+        <td className="border border-gray">
           <label
             htmlFor="notes-field"
             className="exercies-notes"
             placeholder="Add Notes"
           >
             <input
-              className=" w-full"
+              // className="w-full bg-bg"
+              className="w-full"
               type="text"
               value={
                 exerciseData[setCount - 1] &&
@@ -187,58 +187,55 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   }, [setCount]);
 
   return (
-    <>
-      <div className="exercise-container">
-        <h2>{exerciseName}</h2>
-        {/* NOT DEFAULTING TO EXERCISE NAME :( */}
-        {!exerciseName && (
-          <select
-            className="exercise-dropdown"
-            value={exerciseName}
-            onChange={(e) => {
-              setExerciseName(e.target.text);
-            }}
-          >
-            <option value="Select an option">Select an option</option>
-            {exerciseList}
-          </select>
-        )}
-
-        <table className="exercise-table">
-          <thead>
-            <tr>
-              <th scope="col">Set</th>
-              <th scope="col">Weight</th>
-              <th scope="col">Reps</th>
-              <th scope="col">Notes</th>
-            </tr>
-          </thead>
-          <tbody>{sets && sets}</tbody>
-        </table>
-        <div className="exercise-table-button-row">
-          <button
-            className="exercise-table-add-btn pr-1"
-            onClick={() => addSet()}
-          >
-            Add Set |
-          </button>
-
-          <button
-            className="exercise-table-his-btn pr-1"
-            onClick={() => viewHistory()}
-          >
-            History |
-          </button>
-
-          <button className="exercise-table-graph-btn">Graph</button>
-        </div>
-
-        {isHistoryVisible && history && <History history={history[name]} />}
-        {isHistoryVisible && !history[name] && (
-          <p>No history for this exercise</p>
-        )}
+    <div className="card shadow-xl bg-white mb-5">
+      <h3 className="card bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
+        {exerciseName}
+      </h3>
+      {/* <h3 className="text-torq">{exerciseName}</h3> */}
+      {!exerciseName && (
+        <select
+          className="exercise-dropdown"
+          value={exerciseName}
+          onChange={(e) => {
+            setExerciseName(e.target.text);
+          }}
+        >
+          <option value="Select an option">Select an option</option>
+          {exerciseList}
+        </select>
+      )}
+      <table className="exercise-table">
+        <thead>
+          <tr>
+            <th scope="col">Set</th>
+            <th scope="col">Weight</th>
+            <th scope="col">Reps</th>
+            <th scope="col">Notes</th>
+          </tr>
+        </thead>
+        <tbody>{sets && sets}</tbody>
+      </table>
+      <div className="exercise-table-button-row">
+        <button
+          className="exercise-table-add-btn pr-1"
+          onClick={() => addSet()}
+        >
+          Add Set |
+        </button>
+        <button
+          className="exercise-table-his-btn pr-1"
+          onClick={() => viewHistory()}
+        >
+          History |
+        </button>
+        <button className="exercise-table-graph-btn">Graph</button>
       </div>
-    </>
+
+      {isHistoryVisible && history && <History history={history[name]} />}
+      {isHistoryVisible && !history[name] && (
+        <p>No history for this exercise</p>
+      )}
+    </div>
   );
 };
 

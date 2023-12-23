@@ -22,7 +22,7 @@ const WorkoutLog = ({ updatePage }) => {
   return (
     <div className="workout-container">
       <div className="workout-header flex flex-row pl-5 items-center">
-        <h2 className="workout-title text-left text-2xl">Workout Log </h2>
+        <h2 className="workout-title text-left text-2xl">Log </h2>
         <IoAddCircleOutline
           className="text-xl ml-2 cursor-pointer text-torq"
           onClick={() => updatePage("workout")}
