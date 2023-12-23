@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import "../stylesheets/workout_log.css";
 
 const WorkoutLogItem = ({ workout }) => {

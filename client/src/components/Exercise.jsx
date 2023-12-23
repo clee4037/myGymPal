@@ -189,7 +189,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   return (
     <>
       <div className="exercise-container">
-        <h3>{exerciseName}</h3>
+        <h2>{exerciseName}</h2>
         {/* NOT DEFAULTING TO EXERCISE NAME :( */}
         {!exerciseName && (
           <select
