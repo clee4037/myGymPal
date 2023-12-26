@@ -145,7 +145,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           }
         });
       });
-      console.log("reformattedData", reformattedData);
+      // console.log("reformattedData", reformattedData);
 
       setHistory(reformattedData);
     } catch (err) {

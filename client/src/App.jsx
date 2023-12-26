@@ -5,12 +5,6 @@ import WorkoutLog from "./components/WorkoutLog.jsx";
 import "./App.css";
 import Routines from "./components/Routines.jsx";
 
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-
-const localizer = momentLocalizer(moment);
-
 function App() {
   const [page, setPage] = useState("log");
   const updatePage = (newPage) => {
@@ -19,18 +13,9 @@ function App() {
   return (
     <div className="App">
       <NavBar className="mb-10" currentPage={page} updatePage={updatePage} />
-      <div>
-        <Calendar
-          localizer={localizer}
-          // events={myEventsList}
-          startAccessor="start"
-          endAccessor="end"
-          style={{ height: 500 }}
-        />
-      </div>
+      {page === "log" && <WorkoutLog updatePage={updatePage} />}
       {page === "routine" && <Routines />}
       {page === "workout" && <NewWorkout updatePage={updatePage} />}
-      {page === "log" && <WorkoutLog updatePage={updatePage} />}
     </div>
   );
 }

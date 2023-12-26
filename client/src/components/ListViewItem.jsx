@@ -1,7 +1,7 @@
 import React from "react";
 import "../stylesheets/workout_log.css";
 
-const WorkoutLogItem = ({ workout }) => {
+const ListViewItem = ({ workout }) => {
   const convertDate = () => {
     const date = new Date(workout.date);
     return date.toLocaleDateString("en-US", {
@@ -72,4 +72,4 @@ const WorkoutLogItem = ({ workout }) => {
   );
 };
 
-export default WorkoutLogItem;
+export default ListViewItem;
