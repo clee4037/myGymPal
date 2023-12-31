@@ -3,7 +3,7 @@ import axios from "axios";
 import ListView from "./ListView";
 import CalendarView from "./CalendarView";
 import { IoAddCircleOutline } from "react-icons/io5";
-import "../stylesheets/workout_log.css";
+import "../../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ updatePage }) => {
   const [workouts, setWorkouts] = useState([]);

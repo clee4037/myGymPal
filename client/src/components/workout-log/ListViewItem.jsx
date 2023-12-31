@@ -1,5 +1,5 @@
 import React from "react";
-import "../stylesheets/workout_log.css";
+import "../../stylesheets/workout_log.css";
 
 const ListViewItem = ({ workout }) => {
   const convertDate = () => {

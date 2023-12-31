@@ -1,6 +1,6 @@
 import React from "react";
 import ListViewItem from "./ListViewItem";
-import "../stylesheets/workout_log.css";
+import "../../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ workouts, updatePage }) => {
   return (

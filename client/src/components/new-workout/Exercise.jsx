@@ -126,7 +126,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
 
   /* GET HISTORY */
   const reformattedData = {};
-  let historyList;
+  // let historyList;
   const getHistory = async () => {
     try {
       const response = await axios.get("http://localhost:3000/workout");

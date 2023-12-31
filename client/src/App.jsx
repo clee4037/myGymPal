@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import NavBar from "./components/NavBar.jsx";
-import NewWorkout from "./components/NewWorkout.jsx";
-import WorkoutLog from "./components/WorkoutLog.jsx";
+import NewWorkout from "./components/new-workout/NewWorkout.jsx";
+import WorkoutLog from "./components/workout-log/WorkoutLog.jsx";
 import "./App.css";
-import Routines from "./components/Routines.jsx";
+import Routines from "./components/routines/Routines.jsx";
 
 function App() {
   const [page, setPage] = useState("log");
