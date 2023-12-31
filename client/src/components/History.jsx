@@ -12,7 +12,7 @@ const History = ({ history }) => {
         day: "2-digit",
       });
       return (
-        <tr>
+        <tr className="exercise-table">
           <th scope="row">{date}</th>
           <td>{item.data.map((set) => `${set.weight}x${set.reps} `)}</td>
           <td>
@@ -32,7 +32,7 @@ const History = ({ history }) => {
         </tr>
       );
     });
-  return <>{historyList}</>;
+  return <div>{historyList}</div>;
 };
 
 export default History;

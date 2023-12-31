@@ -187,8 +187,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   }, [setCount]);
 
   return (
-    <div className="card shadow-xl bg-white mb-5">
-      <h3 className="card bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
+    <div className="items-center card shadow-xl bg-white mb-5">
+      <h3 className="card w-full bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
         {exerciseName}
       </h3>
       {/* <h3 className="text-torq">{exerciseName}</h3> */}
@@ -204,7 +204,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           {exerciseList}
         </select>
       )}
-      <table className="exercise-table">
+      <table className="exercise-table w-[95%]">
         <thead>
           <tr>
             <th scope="col">Set</th>
@@ -215,7 +215,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
         </thead>
         <tbody>{sets && sets}</tbody>
       </table>
-      <div className="exercise-table-button-row">
+      <div className="exercise-table-button-row p-3">
         <button
           className="exercise-table-add-btn pr-1"
           onClick={() => addSet()}

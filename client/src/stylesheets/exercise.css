@@ -2,11 +2,11 @@
   border: 3px solid gray;
   margin-bottom: 15px;
 }
-table {
+/* table {
   width: 90vw;
   table-layout: fixed;
   text-align: center;
-}
+} */
 
 thead th:nth-child(1) {
   width: 10%;
@@ -21,7 +21,7 @@ thead th:nth-child(4) {
   width: 50%;
 }
 
-.exercise-table-button-row {
+/* .exercise-table-button-row {
   display: flex;
   flex-direction: row;
-}
+} */

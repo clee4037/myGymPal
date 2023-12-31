@@ -8,6 +8,7 @@ const NewWorkout = ({ updatePage }) => {
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
+  const today = new Date().toISOString().split("T")[0];
 
   const validator = () => {
     const body = { ...workoutData, exercises: [] };
@@ -121,9 +122,9 @@ const NewWorkout = ({ updatePage }) => {
   return (
     <div className="pl-5 pr-5">
       <h2 className="text-left text-2xl ">Workout</h2>
-      <div className="workout-header">
+      <div className="workout-header pb-5">
         <select
-          className="workout-routine-dropdown mr-4"
+          className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
           onChange={chooseRoutine}
         >
           <option value="">Select an option</option>
@@ -134,9 +135,13 @@ const NewWorkout = ({ updatePage }) => {
               </option>
             ))}
         </select>
-        <label htmlFor="date-field" className="workout-date">
+        <label
+          htmlFor="date-field"
+          className="workout-date input w-full max-w-xs"
+        >
           <input
             type="date"
+            value={workoutData.date || today}
             onChange={(e) => (workoutData.date = e.target.value)}
           />
         </label>

@@ -25,16 +25,30 @@ const WorkoutLog = ({ updatePage }) => {
   }, []);
   return (
     <div className="workout-container">
-      <div className="workout-header flex flex-row pl-5 items-center">
-        <h2 className="workout-title text-left text-2xl">Log </h2>
-        <IoAddCircleOutline
-          className="text-xl ml-2 cursor-pointer text-torq"
-          onClick={() => updatePage("workout")}
-        />
-
-        <button onClick={() => updateView("list")}>List </button>
-        {" | "}
-        <button onClick={() => updateView("calendar")}> Calendar</button>
+      <div className="workout-header flex flex-row justify-between pl-5 pr-5 items-center">
+        <div className="flex flex-row items-center">
+          <h2 className="workout-title text-left text-2xl">Log </h2>
+          <IoAddCircleOutline
+            className="text-xl ml-2 cursor-pointer text-torq"
+            onClick={() => updatePage("workout")}
+          />
+        </div>
+        <div>
+          <button
+            className={view === "list" && "text-torq"}
+            onClick={() => updateView("list")}
+          >
+            List{" "}
+          </button>
+          {" | "}
+          <button
+            className={view === "calendar" && "text-torq"}
+            onClick={() => updateView("calendar")}
+          >
+            {" "}
+            Calendar
+          </button>
+        </div>
       </div>
       {view === "calendar" && <CalendarView workouts={workouts} />}
       {view === "list" && (

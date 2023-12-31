@@ -1,6 +1,5 @@
 import React from "react";
 import ListViewItem from "./ListViewItem";
-import { IoAddCircleOutline } from "react-icons/io5";
 import "../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ workouts, updatePage }) => {
