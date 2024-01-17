@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import NavBar from "./components/NavBar.jsx";
+import NavBar from "./components/navbar/NavBar.jsx";
 import NewWorkout from "./components/new-workout/NewWorkout.jsx";
 import WorkoutLog from "./components/workout-log/WorkoutLog.jsx";
 import "./App.css";

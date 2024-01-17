@@ -121,7 +121,7 @@ const NewWorkout = ({ updatePage }) => {
 
   return (
     <div className="pl-5 pr-5">
-      <h2 className="text-left text-2xl ">Workout</h2>
+      <h2 className="text-left text-2xl ">New Workout</h2>
       <div className="workout-header pb-5">
         <select
           className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
@@ -148,7 +148,8 @@ const NewWorkout = ({ updatePage }) => {
       </div>
       <div className="workout-body">
         {exercises && exercises}
-        {exercises && <button onClick={addExercise}>Add Exercise</button>}
+        {exercises && <button onClick={addExercise}>Add Exercise |</button>}
+        &nbsp;
         {exercises && <button onClick={sendWorkoutData}>Finish Workout</button>}
       </div>
     </div>

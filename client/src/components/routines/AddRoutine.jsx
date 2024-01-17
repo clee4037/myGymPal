@@ -14,6 +14,7 @@ const AddRoutine = ({ updatePage }) => {
       console.error(err);
     }
   };
+
   const exerciseList =
     allExercises &&
     allExercises.map((exerciseGroup) => (

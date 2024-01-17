@@ -1,8 +1,8 @@
 import React from "react";
-import { GoHistory } from "react-icons/go";
-import { LuDumbbell } from "react-icons/lu";
-import { IoIosStats } from "react-icons/io";
-import { CgProfile } from "react-icons/cg";
+import NavBarLog from "./NavBarLog.jsx";
+import NavBarRoutine from "./NavBarRoutine.jsx";
+import NavBarStats from "./NavBarStats.jsx";
+import NavBarProfile from "./NavBarProfile.jsx";
 
 const NavBar = ({ currentPage, updatePage }) => {
   return (
@@ -11,60 +11,10 @@ const NavBar = ({ currentPage, updatePage }) => {
         <h1 className="text-2xl font-bold text-torq pl-2">MyWorkoutPal</h1>
       </div>
       <div className="navbar-center flex">
-        <button
-          className={
-            currentPage === "log"
-              ? "cursor-pointer text-torq pr-5 pl-5 btn btn-ghost"
-              : "cursor-pointer pr-5 pl-5 btn btn-ghost "
-          }
-          onClick={() => {
-            updatePage("log");
-          }}
-        >
-          {/* Log */}
-          <GoHistory size={24} />
-        </button>
-        <button
-          className={
-            currentPage === "routine"
-              ? "cursor-pointer text-torq pr-5 pl-5 underline btn btn-ghost"
-              : "cursor-pointer pr-5 pl-5 btn btn-ghost"
-          }
-          onClick={() => {
-            updatePage("routine");
-          }}
-        >
-          {/* Routines */}
-          <LuDumbbell size={24} />
-        </button>
-
-        <button
-          className={
-            currentPage === "stats"
-              ? "cursor-pointer text-torq pr-5 pl-5 btn btn-ghost"
-              : "cursor-pointer pr-5 pl-5 btn btn-ghost"
-          }
-          onClick={() => {
-            updatePage("stats");
-          }}
-        >
-          {/* Statistics */}
-          <IoIosStats size={24} />
-        </button>
-
-        <button
-          className={
-            currentPage === "profile"
-              ? "cursor-pointer text-torq pr-5 pl-5 btn btn-ghost"
-              : "cursor-pointer pr-5 pl-5 btn btn-ghost"
-          }
-          onClick={() => {
-            updatePage("profile");
-          }}
-        >
-          {/* Profile */}
-          <CgProfile size={24} />
-        </button>
+        <NavBarLog updatePage={updatePage} currentPage={currentPage} />
+        <NavBarRoutine updatePage={updatePage} currentPage={currentPage} />
+        <NavBarStats updatePage={updatePage} currentPage={currentPage} />
+        <NavBarProfile updatePage={updatePage} currentPage={currentPage} />
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">
