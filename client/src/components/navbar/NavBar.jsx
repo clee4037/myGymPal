@@ -1,4 +1,5 @@
 import React from "react";
+import NavBarTitle from "./NavBarTitle.jsx";
 import NavBarLog from "./NavBarLog.jsx";
 import NavBarRoutine from "./NavBarRoutine.jsx";
 import NavBarStats from "./NavBarStats.jsx";
@@ -7,9 +8,7 @@ import NavBarProfile from "./NavBarProfile.jsx";
 const NavBar = ({ currentPage, updatePage }) => {
   return (
     <div className="navbar bg-white mb-4">
-      <div className="navbar-start">
-        <h1 className="text-2xl font-bold text-torq pl-2">MyWorkoutPal</h1>
-      </div>
+      <NavBarTitle updatePage={updatePage} currentPage={currentPage} />
       <div className="navbar-center flex">
         <NavBarLog updatePage={updatePage} currentPage={currentPage} />
         <NavBarRoutine updatePage={updatePage} currentPage={currentPage} />

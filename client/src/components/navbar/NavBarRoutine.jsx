@@ -1,7 +1,7 @@
 import React from "react";
 import { LuDumbbell } from "react-icons/lu";
 
-const NavBarLog = ({ updatePage, currentPage }) => {
+const NavBarRoutine = ({ updatePage, currentPage }) => {
   return (
     <button
       className={
@@ -18,4 +18,4 @@ const NavBarLog = ({ updatePage, currentPage }) => {
   );
 };
 
-export default NavBarLog;
+export default NavBarRoutine;
