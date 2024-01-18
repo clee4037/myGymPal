@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Exercise from "./Exercise";
+import { postWorkout } from "../../utils/postWorkout";
+import { getRoutines } from "../../utils/getRoutines";
 import "../../stylesheets/exercise.css";
 
 const NewWorkout = ({ updatePage }) => {
@@ -52,11 +53,10 @@ const NewWorkout = ({ updatePage }) => {
       const newExercises = [];
       for (let i = 0; i < exKeys.length; i++) {
         newExercises.push(body.exercises[exKeys[i]]);
-        console.log(newExercises);
       }
       body.exercises = newExercises;
-      console.log(body);
-      await axios.post("http://localhost:3000/workout", body);
+
+      await postWorkout(body);
       updatePage("log");
     } catch (err) {
       console.error(err);
@@ -72,22 +72,21 @@ const NewWorkout = ({ updatePage }) => {
     if (!updatedState.exercises[name]) {
       updatedState.exercises[name] = { name, data };
     }
-
     setWorkoutData(updatedState);
   };
 
   /* GET ALL ROUTINES FOR DROPDOWN */
-  const getRoutines = async () => {
+  const fetchRoutines = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/routine");
-      setAllRoutines(response.data);
+      const data = await getRoutines();
+      setAllRoutines(data);
     } catch (err) {
       console.error(err);
     }
   };
 
   useEffect(() => {
-    getRoutines();
+    fetchRoutines();
   }, []);
 
   /* CHOOSE ROUTINE AND RENDER */
