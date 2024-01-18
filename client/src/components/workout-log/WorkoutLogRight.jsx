@@ -1,8 +1,4 @@
-import React, { useState, useEffect } from "react";
-import ListView from "./ListView";
-import CalendarView from "./CalendarView";
-import { getWorkoutData } from "../../utils/getWorkoutData";
-import { IoAddCircleOutline } from "react-icons/io5";
+import React from "react";
 import "../../stylesheets/workout_log.css";
 
 const WorkoutLogRight = ({ view, updateView }) => {
