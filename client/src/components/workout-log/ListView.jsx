@@ -5,14 +5,12 @@ import "../../stylesheets/workout_log.css";
 const WorkoutLog = ({ workouts, updatePage }) => {
   return (
     workouts && (
-      <>
-        <div className="workout-log">
-          {workouts &&
-            workouts.map((workout) => (
-              <ListViewItem workout={workout} key={workout._id} />
-            ))}
-        </div>
-      </>
+      <div className="workout-log">
+        {workouts &&
+          workouts.map((workout) => (
+            <ListViewItem workout={workout} key={workout._id} />
+          ))}
+      </div>
     )
   );
 };
