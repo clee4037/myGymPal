@@ -7,6 +7,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 const localizer = momentLocalizer(moment);
 
 const WorkoutLog = ({ workouts }) => {
+  /* REFACTOR LATER - DECIDE WHETHER OR NOT TO ADD START END TIME */
   /* HARD CODING WORKOUT DURATION TO 1 HOUR */
   const myEventsList = workouts.map((workout) => {
     const start = new Date(workout.date);

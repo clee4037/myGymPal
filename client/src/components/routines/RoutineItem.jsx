@@ -8,6 +8,7 @@ const RoutineItem = ({ data }) => {
     "Uncle J's Back Day": "🔙",
     "Kevin's Leg Day": "🦵🏼",
   };
+
   return (
     <div className="workout-item-container card shadow-xl bg-white">
       <h3 className="card bg-white text-xl text-font-bold border-2 border-gray-300 text-torq">
