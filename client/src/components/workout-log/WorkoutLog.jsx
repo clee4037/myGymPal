@@ -1,60 +1,42 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import ListView from "./ListView";
 import CalendarView from "./CalendarView";
-import { IoAddCircleOutline } from "react-icons/io5";
+import WorkoutLogLeft from "./WorkoutLogLeft";
+import WorkoutLogRight from "./WorkoutLogRight";
+import { getWorkoutData } from "../../utils/getWorkoutData";
 import "../../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ updatePage }) => {
   const [workouts, setWorkouts] = useState([]);
+
+  // REFACTOR TO USE REACT ROUTER
   const [view, setView] = useState("list");
+
   const updateView = (newView) => {
     setView(newView);
   };
-  const getWorkoutData = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/workout");
-      setWorkouts(response.data);
-    } catch (err) {
-      console.error(err);
-    }
+
+  const fetchWorkoutData = async () => {
+    const data = await getWorkoutData();
+    setWorkouts(data);
   };
 
   useEffect(() => {
-    getWorkoutData();
+    fetchWorkoutData();
   }, []);
+
   return (
-    <div className="workout-container">
-      <div className="workout-header flex flex-row justify-between pl-5 pr-5 items-center">
-        <div className="flex flex-row items-center">
-          <h2 className="workout-title text-left text-2xl">Log </h2>
-          <IoAddCircleOutline
-            className="text-xl ml-2 cursor-pointer text-torq"
-            onClick={() => updatePage("workout")}
-          />
-        </div>
-        <div>
-          <button
-            className={view === "list" && "text-torq"}
-            onClick={() => updateView("list")}
-          >
-            List{" "}
-          </button>
-          {" | "}
-          <button
-            className={view === "calendar" && "text-torq"}
-            onClick={() => updateView("calendar")}
-          >
-            {" "}
-            Calendar
-          </button>
-        </div>
+    <>
+      <div className="flex flex-row justify-between pl-5 pr-5 items-center">
+        <WorkoutLogLeft updatePage={updatePage} />
+        <WorkoutLogRight view={view} updateView={updateView} />
       </div>
-      {view === "calendar" && <CalendarView workouts={workouts} />}
-      {view === "list" && (
+      {view === "list" ? (
         <ListView workouts={workouts} updatePage={updatePage} />
+      ) : (
+        <CalendarView workouts={workouts} />
       )}
-    </div>
+    </>
   );
 };
 
