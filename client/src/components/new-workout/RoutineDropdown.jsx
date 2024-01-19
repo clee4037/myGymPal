@@ -1,6 +1,6 @@
 import React from "react";
 
-const NewWorkout = ({ allRoutines, chooseRoutine }) => {
+const RoutineDropdown = ({ allRoutines, chooseRoutine }) => {
   return (
     <select
       className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
@@ -17,4 +17,4 @@ const NewWorkout = ({ allRoutines, chooseRoutine }) => {
   );
 };
 
-export default NewWorkout;
+export default RoutineDropdown;

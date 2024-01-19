@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
 import RoutineDropdown from "./RoutineDropdown";
+import DateDropdown from "./DateDropdown";
+import NewWorkoutFooter from "./NewWorkoutFooter";
 import { postWorkout } from "../../utils/postWorkout";
 import { getRoutines } from "../../utils/getRoutines";
 import "../../stylesheets/exercise.css";
@@ -10,7 +12,6 @@ const NewWorkout = ({ updatePage }) => {
   const [routine, setRoutine] = useState(null);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-  const today = new Date().toISOString().split("T")[0];
 
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
@@ -90,7 +91,7 @@ const NewWorkout = ({ updatePage }) => {
       allRoutines &&
       allRoutines.find((routine) => routine.name === e.target.value);
     setRoutine(selectedRoutine);
-    workoutData.routine = selectedRoutine.name;
+    // workoutData.routine = selectedRoutine.name;
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
       <Exercise
         name={exercise}
@@ -120,36 +121,15 @@ const NewWorkout = ({ updatePage }) => {
           allRoutines={allRoutines}
           chooseRoutine={chooseRoutine}
         />
-
-        {/* <select
-          className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
-          onChange={chooseRoutine}
-        >
-          <option value="">Select an option</option>
-          {allRoutines &&
-            allRoutines.map((routine) => (
-              <option value={routine.name} key={routine._id}>
-                {routine.name}
-              </option>
-            ))}
-        </select> */}
-        <label
-          htmlFor="date-field"
-          className="workout-date input w-full max-w-xs"
-        >
-          <input
-            type="date"
-            value={workoutData.date || today}
-            onChange={(e) => (workoutData.date = e.target.value)}
-          />
-        </label>
+        <DateDropdown workoutData={workoutData} />
       </div>
-      <div className="workout-body">
-        {exercises && exercises}
-        {exercises && <button onClick={addExercise}>Add Exercise |</button>}
-        &nbsp;
-        {exercises && <button onClick={sendWorkoutData}>Finish Workout</button>}
-      </div>
+      {exercises && exercises}
+      {exercises && (
+        <NewWorkoutFooter
+          addExercise={addExercise}
+          sendWorkoutData={sendWorkoutData}
+        />
+      )}
     </div>
   );
 };
