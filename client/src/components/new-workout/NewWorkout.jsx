@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
+import RoutineDropdown from "./RoutineDropdown";
 import { postWorkout } from "../../utils/postWorkout";
 import { getRoutines } from "../../utils/getRoutines";
 import "../../stylesheets/exercise.css";
@@ -11,7 +12,6 @@ const NewWorkout = ({ updatePage }) => {
   const [allRoutines, setAllRoutines] = useState(null);
   const today = new Date().toISOString().split("T")[0];
 
-  console.log("workoutData", workoutData);
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -50,25 +50,20 @@ const NewWorkout = ({ updatePage }) => {
   const sendWorkoutData = async () => {
     try {
       const body = workoutData;
-
       body.exercises = Object.keys(body.exercises).map(
         (key) => body.exercises[key]
       );
-
       await postWorkout(body);
-
       updatePage("log");
     } catch (err) {
       console.error(err);
     }
   };
 
-  /* EXERCISE DATA FROM EXERCISE CHILD COMP*/
+  /* EXERCISE DATA FROM EXERCISE CHILD COMP */
   const addWorkoutData = (name, data) => {
     const updatedState = workoutData;
-    if (!updatedState.exercises) {
-      updatedState.exercises = {};
-    }
+    updatedState.exercises = updatedState.exercises || {};
     if (!updatedState.exercises[name]) {
       updatedState.exercises[name] = { name, data };
     }
@@ -109,7 +104,6 @@ const NewWorkout = ({ updatePage }) => {
 
   /* ADD Exercise */
   const addExercise = () => {
-    console.log("Click");
     exercises
       ? setExercises([
           ...exercises,
@@ -122,7 +116,12 @@ const NewWorkout = ({ updatePage }) => {
     <div className="pl-5 pr-5">
       <h2 className="text-left text-2xl ">New Workout</h2>
       <div className="workout-header pb-5">
-        <select
+        <RoutineDropdown
+          allRoutines={allRoutines}
+          chooseRoutine={chooseRoutine}
+        />
+
+        {/* <select
           className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
           onChange={chooseRoutine}
         >
@@ -133,7 +132,7 @@ const NewWorkout = ({ updatePage }) => {
                 {routine.name}
               </option>
             ))}
-        </select>
+        </select> */}
         <label
           htmlFor="date-field"
           className="workout-date input w-full max-w-xs"
