@@ -44,6 +44,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
                 // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
                 updatedState[setCount - 1].weight = Number(e.target.value);
+                console.log("updatedState", updatedState);
                 addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}

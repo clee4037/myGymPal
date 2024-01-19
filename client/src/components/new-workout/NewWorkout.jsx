@@ -8,8 +8,7 @@ import { getRoutines } from "../../utils/getRoutines";
 import "../../stylesheets/exercise.css";
 
 const NewWorkout = ({ updatePage }) => {
-  const [exercises, setExercises] = useState(null);
-  const [routine, setRoutine] = useState(null);
+  const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
 
@@ -90,7 +89,6 @@ const NewWorkout = ({ updatePage }) => {
     const selectedRoutine =
       allRoutines &&
       allRoutines.find((routine) => routine.name === e.target.value);
-    setRoutine(selectedRoutine);
     // workoutData.routine = selectedRoutine.name;
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
       <Exercise
@@ -105,12 +103,7 @@ const NewWorkout = ({ updatePage }) => {
 
   /* ADD Exercise */
   const addExercise = () => {
-    exercises
-      ? setExercises([
-          ...exercises,
-          <Exercise addWorkoutData={addWorkoutData} />,
-        ])
-      : setExercises([<Exercise addWorkoutData={addWorkoutData} />]);
+    setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
   };
 
   return (
