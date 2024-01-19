@@ -11,6 +11,7 @@ const NewWorkout = ({ updatePage }) => {
   const [allRoutines, setAllRoutines] = useState(null);
   const today = new Date().toISOString().split("T")[0];
 
+  console.log("workoutData", workoutData);
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -49,14 +50,13 @@ const NewWorkout = ({ updatePage }) => {
   const sendWorkoutData = async () => {
     try {
       const body = workoutData;
-      let exKeys = Object.keys(body.exercises);
-      const newExercises = [];
-      for (let i = 0; i < exKeys.length; i++) {
-        newExercises.push(body.exercises[exKeys[i]]);
-      }
-      body.exercises = newExercises;
+
+      body.exercises = Object.keys(body.exercises).map(
+        (key) => body.exercises[key]
+      );
 
       await postWorkout(body);
+
       updatePage("log");
     } catch (err) {
       console.error(err);

@@ -7,7 +7,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState([]);
-
   const [allExercises, setAllExercises] = useState(null);
 
   const newSet = (count) => {
