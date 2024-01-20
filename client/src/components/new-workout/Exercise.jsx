@@ -151,8 +151,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     getHistory();
   }, [setCount]);
 
-  const selectExercise = (exercise) => {
-    setExerciseName(exercise);
+  const selectExercise = (e) => {
+    setExerciseName(e.target.value);
   };
 
   return (

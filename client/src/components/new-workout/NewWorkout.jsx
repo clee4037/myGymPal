@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Exercise from "./Exercise";
-import RoutineDropdown from "./RoutineDropdown";
+import RoutineDropdown from "../routine-dropdown/RoutineDropdown";
 import DateDropdown from "./DateDropdown";
 import NewWorkoutFooter from "./NewWorkoutFooter";
 import { postWorkout } from "../../utils/postWorkout";
@@ -79,6 +79,11 @@ const NewWorkout = ({ updatePage }) => {
     }
   };
 
+  /* ADD Exercise */
+  const addExercise = () => {
+    setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
+  };
+
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
@@ -96,11 +101,6 @@ const NewWorkout = ({ updatePage }) => {
       />
     ));
     setExercises(exercises);
-  };
-
-  /* ADD Exercise */
-  const addExercise = () => {
-    setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
   };
 
   useEffect(() => {
