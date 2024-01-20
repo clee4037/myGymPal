@@ -116,12 +116,14 @@ const NewWorkout = ({ updatePage }) => {
         />
         <DateDropdown workoutData={workoutData} />
       </div>
-      {exercises && exercises}
       {exercises && (
-        <NewWorkoutFooter
-          addExercise={addExercise}
-          sendWorkoutData={sendWorkoutData}
-        />
+        <>
+          {exercises}
+          <NewWorkoutFooter
+            addExercise={addExercise}
+            sendWorkoutData={sendWorkoutData}
+          />
+        </>
       )}
     </div>
   );

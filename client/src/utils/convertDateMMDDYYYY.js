@@ -1,4 +1,4 @@
-export const convertDateMMDDYYY = (oldDate) => {
+export const convertDateMMDDYYYY = (oldDate) => {
   const newDate = new Date(oldDate);
   return newDate.toLocaleDateString("en-US", {
     year: "numeric",
