@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import History from "./History";
 import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+import { getWorkoutData } from "../../utils/getWorkoutData";
 
 const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [sets, setSets] = useState(null);
@@ -35,7 +35,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           >
             <input
               type="number"
-              // className="w-full bg-bg"
               className="w-full"
               value={
                 exerciseData[setCount - 1] &&
@@ -46,10 +45,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
                 if (!exerciseData[setCount - 1]) {
                   exerciseData[setCount - 1] = {};
                 }
-                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
                 updatedState[setCount - 1].weight = Number(e.target.value);
-                console.log("updatedState", updatedState);
                 addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}
@@ -129,27 +126,18 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   };
 
   /* GET HISTORY */
-  const reformattedData = {};
-  // let historyList;
   const getHistory = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/workout");
-      // console.log("response.data", response.data);
-      response.data.forEach((workout) => {
-        workout.exercises.forEach((exercise) => {
-          if (!reformattedData[exercise.name]) {
-            reformattedData[exercise.name] = [
-              { date: workout.date, data: exercise.data },
-            ];
-          } else {
-            reformattedData[exercise.name].push({
-              date: workout.date,
-              data: exercise.data,
-            });
-          }
+      const response = await getWorkoutData();
+      const historyData = {};
+      response.forEach((workout) => {
+        workout.exercises.forEach(({ name, data }) => {
+          const { date } = workout;
+          historyData[name] = [...(historyData[name] || []), { date, data }];
         });
       });
-      setHistory(reformattedData);
+
+      setHistory(historyData);
     } catch (err) {
       console.error(err);
     }
@@ -208,7 +196,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
         </button>
         <button className="exercise-table-graph-btn">Graph</button>
       </div>
-
       {isHistoryVisible && history && <History history={history[name]} />}
       {isHistoryVisible && !history[name] && (
         <p>No history for this exercise</p>
