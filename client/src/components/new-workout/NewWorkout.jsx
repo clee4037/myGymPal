@@ -1,14 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Exercise from "./Exercise";
-import "../../stylesheets/exercise.css";
+import RoutineDropdown from "./RoutineDropdown";
+import DateDropdown from "./DateDropdown";
+import NewWorkoutFooter from "./NewWorkoutFooter";
+import { postWorkout } from "../../utils/postWorkout";
+import { getRoutines } from "../../utils/getRoutines";
 
 const NewWorkout = ({ updatePage }) => {
-  const [exercises, setExercises] = useState(null);
-  const [routine, setRoutine] = useState(null);
+  const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-  const today = new Date().toISOString().split("T")[0];
 
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
@@ -48,55 +49,44 @@ const NewWorkout = ({ updatePage }) => {
   const sendWorkoutData = async () => {
     try {
       const body = workoutData;
-      let exKeys = Object.keys(body.exercises);
-      const newExercises = [];
-      for (let i = 0; i < exKeys.length; i++) {
-        newExercises.push(body.exercises[exKeys[i]]);
-        console.log(newExercises);
-      }
-      body.exercises = newExercises;
-      console.log(body);
-      await axios.post("http://localhost:3000/workout", body);
+      body.exercises = Object.keys(body.exercises).map(
+        (key) => body.exercises[key]
+      );
+      await postWorkout(body);
       updatePage("log");
     } catch (err) {
       console.error(err);
     }
   };
 
-  /* EXERCISE DATA FROM EXERCISE CHILD COMP*/
+  /* EXERCISE DATA FROM EXERCISE CHILD COMP */
   const addWorkoutData = (name, data) => {
     const updatedState = workoutData;
-    if (!updatedState.exercises) {
-      updatedState.exercises = {};
-    }
+    updatedState.exercises = updatedState.exercises || {};
     if (!updatedState.exercises[name]) {
       updatedState.exercises[name] = { name, data };
     }
-
     setWorkoutData(updatedState);
   };
 
   /* GET ALL ROUTINES FOR DROPDOWN */
-  const getRoutines = async () => {
+  const fetchRoutines = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/routine");
-      setAllRoutines(response.data);
+      const data = await getRoutines();
+      setAllRoutines(data);
     } catch (err) {
       console.error(err);
     }
   };
-
-  useEffect(() => {
-    getRoutines();
-  }, []);
 
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
       allRoutines &&
       allRoutines.find((routine) => routine.name === e.target.value);
-    setRoutine(selectedRoutine);
     workoutData.routine = selectedRoutine.name;
+
+    /* Autofill exercises + sets */
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
       <Exercise
         name={exercise}
@@ -110,48 +100,32 @@ const NewWorkout = ({ updatePage }) => {
 
   /* ADD Exercise */
   const addExercise = () => {
-    console.log("Click");
-    exercises
-      ? setExercises([
-          ...exercises,
-          <Exercise addWorkoutData={addWorkoutData} />,
-        ])
-      : setExercises([<Exercise addWorkoutData={addWorkoutData} />]);
+    setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
   };
+
+  useEffect(() => {
+    fetchRoutines();
+  }, []);
 
   return (
     <div className="pl-5 pr-5">
       <h2 className="text-left text-2xl ">New Workout</h2>
       <div className="workout-header pb-5">
-        <select
-          className="workout-routine-dropdown select select-sm w-full max-w-xs mr-4"
-          onChange={chooseRoutine}
-        >
-          <option value="">Select an option</option>
-          {allRoutines &&
-            allRoutines.map((routine) => (
-              <option value={routine.name} key={routine._id}>
-                {routine.name}
-              </option>
-            ))}
-        </select>
-        <label
-          htmlFor="date-field"
-          className="workout-date input w-full max-w-xs"
-        >
-          <input
-            type="date"
-            value={workoutData.date || today}
-            onChange={(e) => (workoutData.date = e.target.value)}
+        <RoutineDropdown
+          allRoutines={allRoutines}
+          chooseRoutine={chooseRoutine}
+        />
+        <DateDropdown workoutData={workoutData} />
+      </div>
+      {exercises && (
+        <>
+          {exercises}
+          <NewWorkoutFooter
+            addExercise={addExercise}
+            sendWorkoutData={sendWorkoutData}
           />
-        </label>
-      </div>
-      <div className="workout-body">
-        {exercises && exercises}
-        {exercises && <button onClick={addExercise}>Add Exercise |</button>}
-        &nbsp;
-        {exercises && <button onClick={sendWorkoutData}>Finish Workout</button>}
-      </div>
+        </>
+      )}
     </div>
   );
 };
