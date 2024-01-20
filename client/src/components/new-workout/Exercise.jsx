@@ -1,13 +1,18 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import History from "./History";
+import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+
 const Exercise = ({ name, setCount, addWorkoutData }) => {
-  const [exerciseName, setExerciseName] = useState(null);
   const [sets, setSets] = useState(null);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState([]);
-  const [allExercises, setAllExercises] = useState(null);
+  const [exerciseName, setExerciseName] = useState(null);
+
+  const selectExercise = (exercise) => {
+    setExerciseName(exercise);
+  };
 
   const newSet = (count) => {
     let setCount;
@@ -155,30 +160,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     setIsHistoryVisible(!isHistoryVisible);
   };
 
-  /* EXERCISE LIST */
-  const getExerciseList = async () => {
-    try {
-      const response = await axios.get("http://localhost:3000/exercise");
-      setAllExercises(response.data);
-    } catch (err) {
-      console.error(err);
-    }
-  };
-  const exerciseList =
-    allExercises &&
-    allExercises.map((exerciseGroup) => (
-      <optgroup label={exerciseGroup.type} key={exerciseGroup._id}>
-        {exerciseGroup.exercises.map((exercise) => (
-          <option value={exercise} key={exercise._id}>
-            {exercise.name}
-          </option>
-        ))}
-      </optgroup>
-    ));
-
   useEffect(() => {
     setCount ? addSet(setCount) : addSet(1);
-    getExerciseList();
     setExerciseName(name);
     getHistory();
   }, [setCount]);
@@ -188,19 +171,17 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
       <h3 className="card w-full bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
         {exerciseName}
       </h3>
-      {/* <h3 className="text-torq">{exerciseName}</h3> */}
+      {/* NEED TO FIX: ADDING NEW EXERCISE TO ROUTINE DOESNT WORK
+        - TITLE WONT APPEAR IN CORREC FORMAT
+        - HISTORY ISNT DISPLAYED
+       */}
       {!exerciseName && (
-        <select
-          className="exercise-dropdown"
-          value={exerciseName}
-          onChange={(e) => {
-            setExerciseName(e.target.text);
-          }}
-        >
-          <option value="Select an option">Select an option</option>
-          {exerciseList}
-        </select>
+        <ExerciseDropdown
+          exerciseName={exerciseName}
+          selectExercise={selectExercise}
+        />
       )}
+
       <table className="exercise-table w-[95%]">
         <thead>
           <tr>

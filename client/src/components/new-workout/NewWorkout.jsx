@@ -5,13 +5,12 @@ import DateDropdown from "./DateDropdown";
 import NewWorkoutFooter from "./NewWorkoutFooter";
 import { postWorkout } from "../../utils/postWorkout";
 import { getRoutines } from "../../utils/getRoutines";
-import "../../stylesheets/exercise.css";
 
 const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-  console.log("workoutData", workoutData);
+
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -53,7 +52,6 @@ const NewWorkout = ({ updatePage }) => {
       body.exercises = Object.keys(body.exercises).map(
         (key) => body.exercises[key]
       );
-      console.log("1.", body);
       await postWorkout(body);
       updatePage("log");
     } catch (err) {
@@ -81,10 +79,6 @@ const NewWorkout = ({ updatePage }) => {
     }
   };
 
-  useEffect(() => {
-    fetchRoutines();
-  }, []);
-
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
@@ -108,6 +102,10 @@ const NewWorkout = ({ updatePage }) => {
   const addExercise = () => {
     setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
   };
+
+  useEffect(() => {
+    fetchRoutines();
+  }, []);
 
   return (
     <div className="pl-5 pr-5">

@@ -1,6 +1,6 @@
 import React from "react";
 
-const ExerciseList = ({ allExercises }) => {
+const ExerciseDropdownItem = ({ allExercises }) => {
   return (
     allExercises &&
     allExercises.map((exerciseGroup) => (
@@ -15,4 +15,4 @@ const ExerciseList = ({ allExercises }) => {
   );
 };
 
-export default ExerciseList;
+export default ExerciseDropdownItem;
