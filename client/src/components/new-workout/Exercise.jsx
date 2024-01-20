@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import History from "./History";
-import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
-// import Set from "./Set";
-import ExerciseTitle from "./ExerciseTitle";
+import ExerciseHeader from "./ExerciseHeader";
 import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
@@ -157,20 +155,12 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
 
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <ExerciseTitle exerciseName={exerciseName} />
-      {/* NEED TO FIX: ADDING NEW EXERCISE TO ROUTINE DOESNT WORK
-        - HISTORY ISNT DISPLAYED
-       */}
-      {!exerciseName && (
-        <ExerciseDropdown
-          exerciseName={exerciseName}
-          selectExercise={selectExercise}
-        />
-      )}
+      <ExerciseHeader
+        exerciseName={exerciseName}
+        selectExercise={selectExercise}
+      />
       <ExerciseTable sets={sets} />
-      <div className="exercise-table-button-row p-3">
-        <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
-      </div>
+      <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
       {isHistoryVisible && <History history={history[name]} />}
     </div>
   );
