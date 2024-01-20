@@ -11,7 +11,7 @@ const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-
+  console.log("workoutData", workoutData);
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -53,6 +53,7 @@ const NewWorkout = ({ updatePage }) => {
       body.exercises = Object.keys(body.exercises).map(
         (key) => body.exercises[key]
       );
+      console.log("1.", body);
       await postWorkout(body);
       updatePage("log");
     } catch (err) {
@@ -89,7 +90,9 @@ const NewWorkout = ({ updatePage }) => {
     const selectedRoutine =
       allRoutines &&
       allRoutines.find((routine) => routine.name === e.target.value);
-    // workoutData.routine = selectedRoutine.name;
+    workoutData.routine = selectedRoutine.name;
+
+    /* Autofill exercises + sets */
     const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
       <Exercise
         name={exercise}
