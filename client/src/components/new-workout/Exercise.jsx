@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import History from "./History";
 import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+import Set from "./Set";
+import ExerciseFooter from "./ExerciseFooter";
+import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
 
 const Exercise = ({ name, setCount, addWorkoutData }) => {
@@ -99,10 +102,8 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
                 if (!exerciseData[setCount - 1]) {
                   exerciseData[setCount - 1] = {};
                 }
-                // updatedState[setCount].weight = Number(e.target.value);
                 const updatedState = exerciseData;
                 updatedState[setCount - 1].notes = e.target.value;
-                console.log("updatedState", updatedState);
                 addWorkoutData(name, updatedState);
                 setExerciseData(updatedState);
               }}
@@ -136,7 +137,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
           historyData[name] = [...(historyData[name] || []), { date, data }];
         });
       });
-
       setHistory(historyData);
     } catch (err) {
       console.error(err);
@@ -163,43 +163,16 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
         - TITLE WONT APPEAR IN CORREC FORMAT
         - HISTORY ISNT DISPLAYED
        */}
-      {!exerciseName && (
-        <ExerciseDropdown
-          exerciseName={exerciseName}
-          selectExercise={selectExercise}
-        />
-      )}
 
-      <table className="exercise-table w-[95%]">
-        <thead>
-          <tr>
-            <th scope="col">Set</th>
-            <th scope="col">Weight</th>
-            <th scope="col">Reps</th>
-            <th scope="col">Notes</th>
-          </tr>
-        </thead>
-        <tbody>{sets && sets}</tbody>
-      </table>
+      <ExerciseDropdown
+        exerciseName={exerciseName}
+        selectExercise={selectExercise}
+      />
+      <ExerciseTable sets={sets} />
       <div className="exercise-table-button-row p-3">
-        <button
-          className="exercise-table-add-btn pr-1"
-          onClick={() => addSet()}
-        >
-          Add Set |
-        </button>
-        <button
-          className="exercise-table-his-btn pr-1"
-          onClick={() => viewHistory()}
-        >
-          History |
-        </button>
-        <button className="exercise-table-graph-btn">Graph</button>
+        <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
       </div>
-      {isHistoryVisible && history && <History history={history[name]} />}
-      {isHistoryVisible && !history[name] && (
-        <p>No history for this exercise</p>
-      )}
+      {isHistoryVisible && <History history={history[name]} />}
     </div>
   );
 };

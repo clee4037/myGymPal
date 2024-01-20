@@ -4,8 +4,7 @@ import { totalVolume } from "../../utils/totalVolume";
 import { oneRepMax } from "../../utils/oneRepMax";
 
 const History = ({ history }) => {
-  return (
-    history &&
+  return history ? (
     history.map((item) => {
       return (
         <tr className="exercise-table">
@@ -21,6 +20,8 @@ const History = ({ history }) => {
         </tr>
       );
     })
+  ) : (
+    <p>No history for this exercise</p>
   );
 };
 
