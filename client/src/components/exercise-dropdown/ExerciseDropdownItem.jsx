@@ -6,7 +6,7 @@ const ExerciseDropdownItem = ({ allExercises }) => {
     allExercises.map((exerciseGroup) => (
       <optgroup label={exerciseGroup.type} key={exerciseGroup._id}>
         {exerciseGroup.exercises.map((exercise) => (
-          <option value={exercise} key={exercise._id}>
+          <option value={exercise.name} key={exercise._id}>
             {exercise.name}
           </option>
         ))}

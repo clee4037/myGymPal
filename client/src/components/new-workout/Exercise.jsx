@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import History from "./History";
 import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
-import Set from "./Set";
+// import Set from "./Set";
+import ExerciseTitle from "./ExerciseTitle";
 import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
@@ -12,10 +13,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState([]);
   const [exerciseName, setExerciseName] = useState(null);
-
-  const selectExercise = (exercise) => {
-    setExerciseName(exercise);
-  };
 
   const newSet = (count) => {
     let setCount;
@@ -154,20 +151,22 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     getHistory();
   }, [setCount]);
 
+  const selectExercise = (exercise) => {
+    setExerciseName(exercise);
+  };
+
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <h3 className="card w-full bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
-        {exerciseName}
-      </h3>
+      <ExerciseTitle exerciseName={exerciseName} />
       {/* NEED TO FIX: ADDING NEW EXERCISE TO ROUTINE DOESNT WORK
-        - TITLE WONT APPEAR IN CORREC FORMAT
         - HISTORY ISNT DISPLAYED
        */}
-
-      <ExerciseDropdown
-        exerciseName={exerciseName}
-        selectExercise={selectExercise}
-      />
+      {!exerciseName && (
+        <ExerciseDropdown
+          exerciseName={exerciseName}
+          selectExercise={selectExercise}
+        />
+      )}
       <ExerciseTable sets={sets} />
       <div className="exercise-table-button-row p-3">
         <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
