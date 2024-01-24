@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { getExerciseList } from "../../utils/getExerciseList";
-import ExerciseDropdownItem from "./ExerciseDropdownItem";
+import ExerciseDropdownOptions from "./ExerciseDropdownOptions";
 
 const ExerciseDropdown = ({ exerciseName, selectExercise }) => {
   const [allExercises, setAllExercises] = useState(null);
@@ -15,16 +15,11 @@ const ExerciseDropdown = ({ exerciseName, selectExercise }) => {
   }, []);
 
   return (
-    <select
-      className="exercise-dropdown"
-      value={exerciseName}
-      onChange={(e) => {
-        selectExercise(e.target.text);
-      }}
-    >
-      <option value="Select an option">Select an option</option>
-      <ExerciseDropdownItem allExercises={allExercises} />
-    </select>
+    allExercises && (
+      <select className="exercise-dropdown" onChange={selectExercise}>
+        <ExerciseDropdownOptions allExercises={allExercises} />
+      </select>
+    )
   );
 };
 

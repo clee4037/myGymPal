@@ -1,155 +1,29 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import History from "./History";
-import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+import ExerciseHeader from "./ExerciseHeader";
+import ExerciseFooter from "./ExerciseFooter";
+import ExerciseTable from "./ExerciseTable";
+import { getWorkoutData } from "../../utils/getWorkoutData";
 
 const Exercise = ({ name, setCount, addWorkoutData }) => {
-  const [sets, setSets] = useState(null);
+  const [setData, setSetData] = useState([]);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState([]);
   const [exerciseName, setExerciseName] = useState(null);
 
-  const selectExercise = (exercise) => {
-    setExerciseName(exercise);
-  };
-
-  const newSet = (count) => {
-    let setCount;
-    if (count) {
-      setCount = count + 1;
-    } else if (sets) {
-      setCount = sets.length + 1;
-    } else {
-      setCount = 1;
-    }
-
-    return (
-      <tr key={setCount}>
-        <th scope="row">{setCount}</th>
-        <td className="border border-gray">
-          <label
-            placeholder="Add Weight"
-            htmlFor="weight-field"
-            className="exercies-weight "
-          >
-            <input
-              type="number"
-              // className="w-full bg-bg"
-              className="w-full"
-              value={
-                exerciseData[setCount - 1] &&
-                exerciseData[setCount - 1].weight &&
-                exerciseData[setCount - 1].weight
-              }
-              onChange={(e) => {
-                if (!exerciseData[setCount - 1]) {
-                  exerciseData[setCount - 1] = {};
-                }
-                // updatedState[setCount].weight = Number(e.target.value);
-                const updatedState = exerciseData;
-                updatedState[setCount - 1].weight = Number(e.target.value);
-                console.log("updatedState", updatedState);
-                addWorkoutData(name, updatedState);
-                setExerciseData(updatedState);
-              }}
-            />
-          </label>
-        </td>
-        <td className="border border-gray">
-          <label
-            htmlFor="rep-field"
-            className="exercise-rep"
-            placeholder="Add Reps"
-          >
-            <input
-              type="number"
-              // className="w-full bg-bg"
-              className="w-full"
-              value={
-                exerciseData[setCount - 1] &&
-                exerciseData[setCount - 1].reps &&
-                exerciseData[setCount - 1].reps
-              }
-              onChange={(e) => {
-                if (!exerciseData[setCount - 1]) {
-                  exerciseData[setCount - 1] = {};
-                }
-                const updatedState = exerciseData;
-                updatedState[setCount - 1].reps = Number(e.target.value);
-                addWorkoutData(name, updatedState);
-                setExerciseData(updatedState);
-              }}
-            />
-          </label>
-        </td>
-        <td className="border border-gray">
-          <label
-            htmlFor="notes-field"
-            className="exercies-notes"
-            placeholder="Add Notes"
-          >
-            <input
-              // className="w-full bg-bg"
-              className="w-full"
-              type="text"
-              value={
-                exerciseData[setCount - 1] &&
-                exerciseData[setCount - 1].notes &&
-                exerciseData[setCount - 1].notes
-              }
-              onChange={(e) => {
-                if (!exerciseData[setCount - 1]) {
-                  exerciseData[setCount - 1] = {};
-                }
-                // updatedState[setCount].weight = Number(e.target.value);
-                const updatedState = exerciseData;
-                updatedState[setCount - 1].notes = e.target.value;
-                console.log("updatedState", updatedState);
-                addWorkoutData(name, updatedState);
-                setExerciseData(updatedState);
-              }}
-            />
-          </label>
-        </td>
-      </tr>
-    );
-  };
-
-  const addSet = (count) => {
-    const addedSets = [];
-    if (count) {
-      for (let i = 0; i < count; i++) {
-        addedSets.push(newSet(i));
-      }
-    } else {
-      addedSets.push(newSet());
-    }
-    sets ? setSets([...sets, addedSets]) : setSets(addedSets);
-  };
-
   /* GET HISTORY */
-  const reformattedData = {};
-  // let historyList;
   const getHistory = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/workout");
-      // console.log("response.data", response.data);
-      response.data.forEach((workout) => {
-        workout.exercises.forEach((exercise) => {
-          if (!reformattedData[exercise.name]) {
-            reformattedData[exercise.name] = [
-              { date: workout.date, data: exercise.data },
-            ];
-          } else {
-            reformattedData[exercise.name].push({
-              date: workout.date,
-              data: exercise.data,
-            });
-          }
+      const response = await getWorkoutData();
+      const historyData = {};
+      response.forEach((workout) => {
+        workout.exercises.forEach(({ name, data }) => {
+          const { date } = workout;
+          historyData[name] = [...(historyData[name] || []), { date, data }];
         });
       });
-      setHistory(reformattedData);
+      setHistory(historyData);
     } catch (err) {
       console.error(err);
     }
@@ -160,59 +34,48 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
     setIsHistoryVisible(!isHistoryVisible);
   };
 
+  const updateExerciseData = (updatedState) => {
+    setExerciseData(updatedState);
+  };
+
+  const addSet = (count = 1) => {
+    const addedSets = [];
+    for (let i = 0; i < count; i++) {
+      addedSets.push({
+        set: setData.length + i + 1,
+        weight: null,
+        reps: null,
+        notes: null,
+      });
+    }
+    setSetData([...setData, ...addedSets]);
+  };
+
   useEffect(() => {
-    setCount ? addSet(setCount) : addSet(1);
+    addSet(setCount || 1);
     setExerciseName(name);
     getHistory();
   }, [setCount]);
 
+  const selectExercise = (e) => {
+    setExerciseName(e.target.value);
+  };
+
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <h3 className="card w-full bg-white text-xl text-font-bold border-2 border-gray-300 text-torq mb-1">
-        {exerciseName}
-      </h3>
-      {/* NEED TO FIX: ADDING NEW EXERCISE TO ROUTINE DOESNT WORK
-        - TITLE WONT APPEAR IN CORREC FORMAT
-        - HISTORY ISNT DISPLAYED
-       */}
-      {!exerciseName && (
-        <ExerciseDropdown
-          exerciseName={exerciseName}
-          selectExercise={selectExercise}
-        />
-      )}
-
-      <table className="exercise-table w-[95%]">
-        <thead>
-          <tr>
-            <th scope="col">Set</th>
-            <th scope="col">Weight</th>
-            <th scope="col">Reps</th>
-            <th scope="col">Notes</th>
-          </tr>
-        </thead>
-        <tbody>{sets && sets}</tbody>
-      </table>
-      <div className="exercise-table-button-row p-3">
-        <button
-          className="exercise-table-add-btn pr-1"
-          onClick={() => addSet()}
-        >
-          Add Set |
-        </button>
-        <button
-          className="exercise-table-his-btn pr-1"
-          onClick={() => viewHistory()}
-        >
-          History |
-        </button>
-        <button className="exercise-table-graph-btn">Graph</button>
-      </div>
-
-      {isHistoryVisible && history && <History history={history[name]} />}
-      {isHistoryVisible && !history[name] && (
-        <p>No history for this exercise</p>
-      )}
+      <ExerciseHeader
+        exerciseName={exerciseName}
+        selectExercise={selectExercise}
+      />
+      <ExerciseTable
+        setData={setData}
+        exerciseData={exerciseData}
+        name={name}
+        addWorkoutData={addWorkoutData}
+        updateExerciseData={updateExerciseData}
+      />
+      <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
+      {isHistoryVisible && <History history={history[name]} />}
     </div>
   );
 };
