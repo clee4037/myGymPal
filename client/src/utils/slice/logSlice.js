@@ -18,7 +18,6 @@ export const logSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { setWorkout, setView } = logSlice.actions;
 
 export default logSlice.reducer;

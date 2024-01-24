@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
 
 const AddRoutine = ({ updatePage }) => {
+  /* REDUX IT */
   const [exerciseName, setExerciseName] = useState("");
 
   const selectExercise = (exercise) => {
