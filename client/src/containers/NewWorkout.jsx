@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Exercise from "./Exercise";
-import RoutineDropdown from "../routine-dropdown/RoutineDropdown";
-import DateDropdown from "./DateDropdown";
-import NewWorkoutFooter from "./NewWorkoutFooter";
-import { postWorkout } from "../../utils/postWorkout";
-import { getRoutines } from "../../utils/getRoutines";
+import Exercise from "../components/new-workout/Exercise";
+import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
+import DateDropdown from "../components/new-workout/DateDropdown";
+import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
+import { postWorkout } from "../utils/postWorkout";
+import { getRoutines } from "../utils/getRoutines";
 
 const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState([]);

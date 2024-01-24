@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import ListView from "./ListView";
-import CalendarView from "./CalendarView";
-import WorkoutLogLeft from "./WorkoutLogLeft";
-import WorkoutLogRight from "./WorkoutLogRight";
-import { getWorkoutData } from "../../utils/getWorkoutData";
-import "../../stylesheets/workout_log.css";
+import ListView from "../components/workout-log/ListView";
+import CalendarView from "../components/workout-log/CalendarView";
+import WorkoutLogLeft from "../components/workout-log/WorkoutLogLeft";
+import WorkoutLogRight from "../components/workout-log/WorkoutLogRight";
+import { getWorkoutData } from "../utils/getWorkoutData";
+import "../stylesheets/workout_log.css";
 
 const WorkoutLog = ({ updatePage }) => {
   const [workouts, setWorkouts] = useState([]);
