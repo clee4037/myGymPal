@@ -7,7 +7,7 @@ const WorkoutLogRight = ({ view, updateView }) => {
   return (
     <div>
       <button
-        className={view === "list" && "text-torq"}
+        className={view === "list" ? "text-torq" : ""}
         onClick={() => {
           updateView("list");
           navigate("/");
@@ -17,7 +17,7 @@ const WorkoutLogRight = ({ view, updateView }) => {
       </button>
       {" | "}
       <button
-        className={view === "calendar" && "text-torq"}
+        className={view === "calendar" ? "text-torq" : ""}
         onClick={() => {
           updateView("calendar");
           navigate("/calendar");
