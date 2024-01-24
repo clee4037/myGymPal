@@ -11,7 +11,6 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseData, setExerciseData] = useState([]);
   const [exerciseName, setExerciseName] = useState(null);
-
   /* GET HISTORY */
   const getHistory = async () => {
     try {
@@ -37,6 +36,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
   const updateExerciseData = (updatedState) => {
     setExerciseData(updatedState);
   };
+
   const addSet = (count = 1) => {
     const addedSets = [];
     for (let i = 0; i < count; i++) {
