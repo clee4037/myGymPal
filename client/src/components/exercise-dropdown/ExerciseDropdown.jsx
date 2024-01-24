@@ -1,13 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { getExerciseList } from "../../utils/getExerciseList";
-import ExerciseDropdownOptions from "./ExerciseDropdownOptions";
+import { useSelector, useDispatch } from "react-redux";
+import { setExercises } from "../../utils/slice/routineSlice";
 
 const ExerciseDropdown = ({ exerciseName, selectExercise }) => {
-  const [allExercises, setAllExercises] = useState(null);
+  const dispatch = useDispatch();
+  const { exercises } = useSelector((state) => state.routine);
 
   const fetchExerciseList = async () => {
     const data = await getExerciseList();
-    setAllExercises(data);
+    dispatch(setExercises(data));
   };
 
   useEffect(() => {
@@ -15,11 +17,19 @@ const ExerciseDropdown = ({ exerciseName, selectExercise }) => {
   }, []);
 
   return (
-    allExercises && (
-      <select className="exercise-dropdown" onChange={selectExercise}>
-        <ExerciseDropdownOptions allExercises={allExercises} />
-      </select>
-    )
+    <select className="exercise-dropdown" onChange={selectExercise}>
+      <option value="Select an option">Select an option</option>
+      {exercises &&
+        exercises.map((exerciseGroup) => (
+          <optgroup label={exerciseGroup.type} key={exerciseGroup._id}>
+            {exerciseGroup.exercises.map((exercise) => (
+              <option value={exercise.name} key={exercise._id}>
+                {exercise.name}
+              </option>
+            ))}
+          </optgroup>
+        ))}
+    </select>
   );
 };
 
