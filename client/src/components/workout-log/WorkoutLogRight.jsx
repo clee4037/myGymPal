@@ -1,15 +1,19 @@
 import React from "react";
 import "../../stylesheets/workout_log.css";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setView } from "../../utils/slice/logSlice";
 
-const WorkoutLogRight = ({ view, updateView }) => {
+const WorkoutLogRight = () => {
+  const { view } = useSelector((state) => state.log);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   return (
     <div>
       <button
         className={view === "list" ? "text-torq" : ""}
         onClick={() => {
-          updateView("list");
+          dispatch(setView("list"));
           navigate("/");
         }}
       >
@@ -19,7 +23,7 @@ const WorkoutLogRight = ({ view, updateView }) => {
       <button
         className={view === "calendar" ? "text-torq" : ""}
         onClick={() => {
-          updateView("calendar");
+          dispatch(setView("calendar"));
           navigate("/calendar");
         }}
       >

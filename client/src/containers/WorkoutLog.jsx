@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import ListView from "../components/workout-log/ListView";
 import CalendarView from "../components/workout-log/CalendarView";
@@ -10,7 +10,7 @@ import "../stylesheets/workout_log.css";
 import { setWorkout } from "../utils/slice/logSlice";
 
 const WorkoutLog = ({ updatePage }) => {
-  const { workouts } = useSelector((state) => state.log);
+  const { workouts, view } = useSelector((state) => state.log);
   const dispatch = useDispatch();
 
   const fetchWorkoutData = async () => {
@@ -22,18 +22,11 @@ const WorkoutLog = ({ updatePage }) => {
     fetchWorkoutData();
   }, []);
 
-  // REFACTOR TO USE REACT ROUTER
-  const [view, setView] = useState("list");
-
-  const updateView = (newView) => {
-    setView(newView);
-  };
-
   return (
     <>
       <div className="flex flex-row justify-between pl-5 pr-5 items-center">
         <WorkoutLogLeft updatePage={updatePage} />
-        <WorkoutLogRight view={view} updateView={updateView} />
+        <WorkoutLogRight />
       </div>
       {view === "list" ? (
         <ListView workouts={workouts} updatePage={updatePage} />
