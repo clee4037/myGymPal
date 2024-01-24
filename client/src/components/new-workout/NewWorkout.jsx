@@ -10,7 +10,7 @@ const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState([]);
   const [workoutData, setWorkoutData] = useState({});
   const [allRoutines, setAllRoutines] = useState(null);
-  console.log(workoutData);
+
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {

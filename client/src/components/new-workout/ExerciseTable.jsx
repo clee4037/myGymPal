@@ -12,14 +12,13 @@ const ExerciseTable = ({
     if (!currentState[set - 1]) {
       currentState[set - 1] = {};
     }
-    const updatedState = currentState;
     if (column === "notes") {
-      updatedState[set - 1].notes = value;
+      currentState[set - 1].notes = value;
     } else {
-      updatedState[set - 1][column] = Number(value);
+      currentState[set - 1][column] = Number(value);
     }
-    addWorkoutData(name, updatedState);
-    updateExerciseData(updatedState);
+    addWorkoutData(name, currentState);
+    updateExerciseData(currentState);
   };
   return (
     <table className="exercise-table w-[95%]">
