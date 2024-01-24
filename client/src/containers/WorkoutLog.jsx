@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import ListView from "../components/workout-log/ListView";
 import CalendarView from "../components/workout-log/CalendarView";
 import WorkoutLogLeft from "../components/workout-log/WorkoutLogLeft";
@@ -6,8 +7,20 @@ import WorkoutLogRight from "../components/workout-log/WorkoutLogRight";
 import { getWorkoutData } from "../utils/getWorkoutData";
 import "../stylesheets/workout_log.css";
 
+import { setWorkout } from "../utils/slice/logSlice";
+
 const WorkoutLog = ({ updatePage }) => {
-  const [workouts, setWorkouts] = useState([]);
+  const { workouts } = useSelector((state) => state.log);
+  const dispatch = useDispatch();
+
+  const fetchWorkoutData = async () => {
+    const response = await getWorkoutData();
+    dispatch(setWorkout(response));
+  };
+
+  useEffect(() => {
+    fetchWorkoutData();
+  }, []);
 
   // REFACTOR TO USE REACT ROUTER
   const [view, setView] = useState("list");
@@ -15,15 +28,6 @@ const WorkoutLog = ({ updatePage }) => {
   const updateView = (newView) => {
     setView(newView);
   };
-
-  const fetchWorkoutData = async () => {
-    const data = await getWorkoutData();
-    setWorkouts(data);
-  };
-
-  useEffect(() => {
-    fetchWorkoutData();
-  }, []);
 
   return (
     <>

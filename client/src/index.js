@@ -2,22 +2,13 @@ import React from "react";
 import App from "./App.jsx";
 import "./index.css";
 import ReactDOM from "react-dom/client";
-// import { Toaster } from "react-hot-toast";
-// import { store } from "./store.js";
-// import { Provider } from "react-redux";
+import { store } from "./store.js";
+import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import WorkoutLog from "./containers/WorkoutLog.jsx";
 import NewWorkout from "./containers/NewWorkout.jsx";
 import Routines from "./containers/Routines.jsx";
-/*
-  Workout log
-    List
-    Calendar
-  New workout
-  Routines
-  Stats
-  Profile
-  */
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -41,15 +32,20 @@ const router = createBrowserRouter([
         path: "/routine",
         element: <Routines />,
       },
+      // {
+      //   path: "/profile",
+      //   element: <Profile />,
+      // },
+      // {
+      //   path: "/stats",
+      //   element: <Stats />,
+      // },
     ],
   },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(
-  <>
-    {/* <Provider store={store}> */}
+  <Provider store={store}>
     <RouterProvider router={router} />
-    {/* </Provider> */}
-    {/* <Toaster position="top-center" reverseOrder={false} /> */}
-  </>
+  </Provider>
 );
