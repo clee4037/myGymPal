@@ -49,9 +49,16 @@ export const newWorkoutSlice = createSlice({
         ],
       });
     },
+    addSet: (state, action) => {
+      state.workoutData.exercises[action.payload].data.push({
+        reps: null,
+        weight: null,
+      });
+    },
+    updateWorkout: (state, { exerciseIndex, setIndex, newData }) => {},
   },
 });
 
-export const { addExercise, setWorkoutData } = newWorkoutSlice.actions;
+export const { addExercise, addSet, setWorkoutData } = newWorkoutSlice.actions;
 
 export default newWorkoutSlice.reducer;

@@ -75,7 +75,10 @@ const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
         addWorkoutData={addWorkoutData}
         updateExerciseData={updateExerciseData}
       />
-      <ExerciseFooter addSet={addSet} viewHistory={viewHistory} />
+      <ExerciseFooter
+        viewHistory={viewHistory}
+        exerciseNumber={exerciseNumber}
+      />
       {isHistoryVisible && <History history={history[name]} />}
     </div>
   );
