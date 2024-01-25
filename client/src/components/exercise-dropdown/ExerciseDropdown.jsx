@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { getExerciseList } from "../../utils/getExerciseList";
+import { getExercises } from "../../utils/getExercises";
 import { useSelector, useDispatch } from "react-redux";
 import { setExercises } from "../../utils/slice/routineSlice";
 
@@ -7,13 +7,13 @@ const ExerciseDropdown = ({ exerciseName, selectExercise }) => {
   const dispatch = useDispatch();
   const { exercises } = useSelector((state) => state.routine);
 
-  const fetchExerciseList = async () => {
-    const data = await getExerciseList();
+  const fetchExercises = async () => {
+    const data = await getExercises();
     dispatch(setExercises(data));
   };
 
   useEffect(() => {
-    fetchExerciseList();
+    fetchExercises();
   }, []);
 
   return (

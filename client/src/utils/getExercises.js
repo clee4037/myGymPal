@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export const getExerciseList = async () => {
+export const getExercises = async () => {
   try {
     const { data } = await axios.get("http://localhost:3000/exercise");
     return data;

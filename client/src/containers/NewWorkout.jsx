@@ -1,15 +1,18 @@
 import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Exercise from "../components/new-workout/Exercise";
 import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
 import DateDropdown from "../components/new-workout/DateDropdown";
 import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
 import { postWorkout } from "../utils/postWorkout";
-import { getRoutines } from "../utils/getRoutines";
+import { setWorkoutData } from "../utils/slice/newWorkoutSlice";
 
 const NewWorkout = ({ updatePage }) => {
   const [exercises, setExercises] = useState([]);
-  const [workoutData, setWorkoutData] = useState({});
-  const [allRoutines, setAllRoutines] = useState(null);
+  const { workoutData } = useSelector((state) => state.newWorkout);
+  const { routines } = useSelector((state) => state.routine);
+  const dispatch = useDispatch();
+  console.log("workoutData", workoutData);
 
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
@@ -61,65 +64,69 @@ const NewWorkout = ({ updatePage }) => {
 
   /* EXERCISE DATA FROM EXERCISE CHILD COMP */
   const addWorkoutData = (name, data) => {
-    const updatedState = workoutData;
+    const updatedState = workoutData.exercises;
     updatedState.exercises = updatedState.exercises || {};
     if (!updatedState.exercises[name]) {
       updatedState.exercises[name] = { name, data };
     }
-    setWorkoutData(updatedState);
-  };
-
-  /* GET ALL ROUTINES FOR DROPDOWN */
-  const fetchRoutines = async () => {
-    try {
-      const data = await getRoutines();
-      setAllRoutines(data);
-    } catch (err) {
-      console.error(err);
-    }
+    dispatch(setWorkoutData(updatedState));
   };
 
   /* ADD Exercise */
   const addExercise = () => {
-    setExercises([...exercises, <Exercise addWorkoutData={addWorkoutData} />]);
+    const newExercise = {
+      name: null,
+      data: [
+        {
+          reps: null,
+          weight: null,
+        },
+      ],
+    };
+    dispatch(
+      setWorkoutData({
+        ...workoutData,
+        exercises: [...workoutData.exercises, newExercise],
+      })
+    );
   };
 
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
-      allRoutines &&
-      allRoutines.find((routine) => routine.name === e.target.value);
-    workoutData.routine = selectedRoutine.name;
+      routines && routines.find((routine) => routine.name === e.target.value);
 
-    /* Autofill exercises + sets */
-    const exercises = selectedRoutine.data.map(({ exercise, sets }) => (
-      <Exercise
-        name={exercise}
-        setCount={sets}
-        addWorkoutData={addWorkoutData}
-        key={exercise + sets}
-      />
-    ));
-    setExercises(exercises);
+    const data = {
+      routine: selectedRoutine.name,
+      exercises: selectedRoutine.data.map(({ exercise, sets }) => {
+        const data = Array.from({ length: sets }, () => ({
+          reps: null,
+          weight: null,
+        }));
+        return { name: exercise, data };
+      }),
+    };
+    dispatch(setWorkoutData(data));
   };
-
-  useEffect(() => {
-    fetchRoutines();
-  }, []);
 
   return (
     <div className="pl-5 pr-5">
       <h2 className="text-left text-2xl ">New Workout</h2>
       <div className="workout-header pb-5">
-        <RoutineDropdown
-          allRoutines={allRoutines}
-          chooseRoutine={chooseRoutine}
-        />
+        <RoutineDropdown chooseRoutine={chooseRoutine} />
         <DateDropdown workoutData={workoutData} />
       </div>
-      {exercises && (
+      {workoutData.exercises && (
         <>
-          {exercises}
+          {/* {exercises} */}
+          {workoutData.exercises.map(({ name, data }) => (
+            <Exercise
+              name={name}
+              setCount={data.length}
+              addWorkoutData={addWorkoutData}
+              key={name + data.length}
+            />
+          ))}
           <NewWorkoutFooter
             addExercise={addExercise}
             sendWorkoutData={sendWorkoutData}
