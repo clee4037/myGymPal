@@ -7,6 +7,7 @@ const ExerciseTable = ({
   name,
   addWorkoutData,
   updateExerciseData,
+  exerciseNumber,
 }) => {
   const updateState = (workoutName, currentState, set, column, value) => {
     if (!currentState[set - 1]) {
@@ -17,7 +18,7 @@ const ExerciseTable = ({
     } else {
       currentState[set - 1][column] = Number(value);
     }
-    addWorkoutData(name, currentState);
+    addWorkoutData(set, name, currentState);
     updateExerciseData(currentState);
   };
   return (

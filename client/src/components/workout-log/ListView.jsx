@@ -2,7 +2,7 @@ import React from "react";
 import ListViewItem from "./ListViewItem";
 import "../../stylesheets/workout_log.css";
 
-const WorkoutLog = ({ workouts, updatePage }) => {
+const ListView = ({ workouts, updatePage }) => {
   return (
     workouts && (
       <div className="workout-log">
@@ -15,4 +15,4 @@ const WorkoutLog = ({ workouts, updatePage }) => {
   );
 };
 
-export default WorkoutLog;
+export default ListView;

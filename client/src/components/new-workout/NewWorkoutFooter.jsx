@@ -1,9 +1,12 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { addExercise } from "../../utils/slice/newWorkoutSlice";
 
-const NewWorkoutFooter = ({ addExercise, sendWorkoutData }) => {
+const NewWorkoutFooter = ({ sendWorkoutData }) => {
+  const dispatch = useDispatch();
   return (
     <>
-      <button onClick={addExercise}>Add Exercise |</button>{" "}
+      <button onClick={() => dispatch(addExercise())}>Add Exercise |</button>{" "}
       <button onClick={sendWorkoutData}>Finish Workout</button>
     </>
   );

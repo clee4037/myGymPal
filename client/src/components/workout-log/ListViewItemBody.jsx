@@ -9,7 +9,6 @@ const ListViewItemBody = ({ workout }) => {
     "Uncle J's Back Day": "🔙",
     "Kevin's Leg Day": "🦵🏼",
   };
-
   return (
     <div className="justify-start pt-2 pl-4">
       <h3 className="justify-start font-bold text-torq">
@@ -17,7 +16,7 @@ const ListViewItemBody = ({ workout }) => {
       </h3>
       <div className="justify-start pt-1 pl-4">
         {workout.exercises.map((exercise) => (
-          <div className="exercise-item" key={exercise.name}>
+          <div className="exercise-item" key={exercise._id}>
             <div className="exercise-sets italic">
               {exercise.data.length}x {exercise.name}
             </div>
