@@ -1,4 +1,3 @@
-import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Exercise from "../components/new-workout/Exercise";
 import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
@@ -8,12 +7,10 @@ import { postWorkout } from "../utils/postWorkout";
 import { setWorkoutData } from "../utils/slice/newWorkoutSlice";
 
 const NewWorkout = ({ updatePage }) => {
-  const [exercises, setExercises] = useState([]);
   const { workoutData } = useSelector((state) => state.newWorkout);
   const { routines } = useSelector((state) => state.routine);
   const dispatch = useDispatch();
-  console.log("workoutData", workoutData);
-
+  console.log(workoutData);
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -48,7 +45,7 @@ const NewWorkout = ({ updatePage }) => {
   //   return true;
   // };
 
-  /* POST / COMPLETE WORKOUT */
+  /* WIP: POST / COMPLETE WORKOUT */
   const sendWorkoutData = async () => {
     try {
       const body = workoutData;
@@ -62,40 +59,30 @@ const NewWorkout = ({ updatePage }) => {
     }
   };
 
-  /* EXERCISE DATA FROM EXERCISE CHILD COMP */
-  const addWorkoutData = (name, data) => {
+  /* WIP: EXERCISE DATA FROM EXERCISE CHILD COMP */
+  const addWorkoutData = (set, name, data) => {
     const updatedState = workoutData.exercises;
-    updatedState.exercises = updatedState.exercises || {};
-    if (!updatedState.exercises[name]) {
-      updatedState.exercises[name] = { name, data };
-    }
-    dispatch(setWorkoutData(updatedState));
-  };
-
-  /* ADD Exercise */
-  const addExercise = () => {
-    const newExercise = {
-      name: null,
-      data: [
-        {
-          reps: null,
-          weight: null,
-        },
-      ],
-    };
+    console.log("1.", set, updatedState);
+    updatedState[set - 1] = data;
+    console.log("2.", updatedState);
     dispatch(
       setWorkoutData({
         ...workoutData,
-        exercises: [...workoutData.exercises, newExercise],
+        exercises: [],
       })
     );
+    // const updatedState = workoutData.exercises;
+    // updatedState.exercises = updatedState.exercises || {};
+    // if (!updatedState.exercises[name]) {
+    //   updatedState.exercises[name] = { name, data };
+    // }
+    // dispatch(setWorkoutData(updatedState));
   };
 
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
       routines && routines.find((routine) => routine.name === e.target.value);
-
     const data = {
       routine: selectedRoutine.name,
       exercises: selectedRoutine.data.map(({ exercise, sets }) => {
@@ -116,22 +103,21 @@ const NewWorkout = ({ updatePage }) => {
         <RoutineDropdown chooseRoutine={chooseRoutine} />
         <DateDropdown workoutData={workoutData} />
       </div>
-      {workoutData.exercises && (
-        <>
-          {/* {exercises} */}
-          {workoutData.exercises.map(({ name, data }) => (
-            <Exercise
-              name={name}
-              setCount={data.length}
-              addWorkoutData={addWorkoutData}
-              key={name + data.length}
-            />
-          ))}
-          <NewWorkoutFooter
-            addExercise={addExercise}
-            sendWorkoutData={sendWorkoutData}
+      {workoutData.exercises &&
+        workoutData.exercises.map(({ name, data }, exerciseNumber) => (
+          <Exercise
+            name={name}
+            exerciseNumber={exerciseNumber}
+            setCount={data.length}
+            addWorkoutData={addWorkoutData}
+            key={name + data.length}
           />
-        </>
+        ))}
+      {workoutData.exercises && (
+        <NewWorkoutFooter
+          // addExercise={addExercise}
+          sendWorkoutData={sendWorkoutData}
+        />
       )}
     </div>
   );

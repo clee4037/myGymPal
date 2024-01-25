@@ -5,7 +5,7 @@ import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
 
-const Exercise = ({ name, setCount, addWorkoutData }) => {
+const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
   const [setData, setSetData] = useState([]);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
@@ -69,6 +69,7 @@ const Exercise = ({ name, setCount, addWorkoutData }) => {
       />
       <ExerciseTable
         setData={setData}
+        exerciseNumber={exerciseNumber}
         exerciseData={exerciseData}
         name={name}
         addWorkoutData={addWorkoutData}

@@ -1,5 +1,4 @@
 import React from "react";
-
 const ExerciseFooter = ({ addSet, viewHistory }) => {
   return (
     <div className="exercise-table-button-row p-3">
