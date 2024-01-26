@@ -45,6 +45,7 @@ export const newWorkoutSlice = createSlice({
           {
             reps: null,
             weight: null,
+            notes: null,
           },
         ],
       });
@@ -53,12 +54,18 @@ export const newWorkoutSlice = createSlice({
       state.workoutData.exercises[action.payload].data.push({
         reps: null,
         weight: null,
+        notes: null,
       });
     },
-    updateWorkout: (state, { exerciseIndex, setIndex, newData }) => {},
+    updateWorkoutData: (state, action) => {
+      // REFACTOR TO USE CREATEACTION || https://redux-toolkit.js.org/api/createAction
+      const { exerciseIndex, setIndex, col, newData } = action.payload;
+      state.workoutData.exercises[exerciseIndex].data[setIndex][col] = newData;
+    },
   },
 });
 
-export const { addExercise, addSet, setWorkoutData } = newWorkoutSlice.actions;
+export const { setWorkoutData, addExercise, addSet, updateWorkoutData } =
+  newWorkoutSlice.actions;
 
 export default newWorkoutSlice.reducer;

@@ -1,26 +1,7 @@
 import React from "react";
 import ExerciseTableCols from "./ExerciseTableCols";
 
-const ExerciseTable = ({
-  setData,
-  exerciseData,
-  name,
-  addWorkoutData,
-  updateExerciseData,
-  exerciseNumber,
-}) => {
-  const updateState = (workoutName, currentState, set, column, value) => {
-    if (!currentState[set - 1]) {
-      currentState[set - 1] = {};
-    }
-    if (column === "notes") {
-      currentState[set - 1].notes = value;
-    } else {
-      currentState[set - 1][column] = Number(value);
-    }
-    addWorkoutData(set, name, currentState);
-    updateExerciseData(currentState);
-  };
+const ExerciseTable = ({ setData, exerciseData, name, exerciseIndex }) => {
   return (
     <table className="exercise-table w-[95%]">
       <thead>
@@ -40,21 +21,21 @@ const ExerciseTable = ({
               set={set}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"reps"}
               set={set}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"notes"}
               set={set}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
           </tr>
         ))}

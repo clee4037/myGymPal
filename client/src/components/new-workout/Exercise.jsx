@@ -5,11 +5,10 @@ import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
 
-const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
+const Exercise = ({ name, setCount, exerciseIndex }) => {
   const [setData, setSetData] = useState([]);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
-  const [exerciseData, setExerciseData] = useState([]);
   const [exerciseName, setExerciseName] = useState(null);
 
   /* GET HISTORY */
@@ -32,10 +31,6 @@ const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
   /* VIEW HISTORY */
   const viewHistory = () => {
     setIsHistoryVisible(!isHistoryVisible);
-  };
-
-  const updateExerciseData = (updatedState) => {
-    setExerciseData(updatedState);
   };
 
   const addSet = (count = 1) => {
@@ -69,16 +64,10 @@ const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
       />
       <ExerciseTable
         setData={setData}
-        exerciseNumber={exerciseNumber}
-        exerciseData={exerciseData}
+        exerciseIndex={exerciseIndex}
         name={name}
-        addWorkoutData={addWorkoutData}
-        updateExerciseData={updateExerciseData}
       />
-      <ExerciseFooter
-        viewHistory={viewHistory}
-        exerciseNumber={exerciseNumber}
-      />
+      <ExerciseFooter viewHistory={viewHistory} exerciseIndex={exerciseIndex} />
       {isHistoryVisible && <History history={history[name]} />}
     </div>
   );

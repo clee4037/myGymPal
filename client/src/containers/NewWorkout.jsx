@@ -26,10 +26,10 @@ const NewWorkout = ({ updatePage }) => {
   //     const exerciseData = body[keys[i]];
   //     console.log("ex", exerciseData);
   //     const transformedData = [];
-  //     const setNumber = Object.keys(exerciseData);
-  //     console.log("set count", setNumber);
-  //     for (let j = 1; j < setNumber.length; j++) {
-  //       const setData = exerciseData[setNumber[j]];
+  //     const setIndex = Object.keys(exerciseData);
+  //     console.log("set count", setIndex);
+  //     for (let j = 1; j < setIndex.length; j++) {
+  //       const setData = exerciseData[setIndex[j]];
   //       if (!setData.weight || !setData.reps) {
   //         alert("Missing weight or reps");
   //         return false;
@@ -59,26 +59,6 @@ const NewWorkout = ({ updatePage }) => {
     }
   };
 
-  /* WIP: EXERCISE DATA FROM EXERCISE CHILD COMP */
-  const addWorkoutData = (set, name, data) => {
-    const updatedState = workoutData.exercises;
-    console.log("1.", set, updatedState);
-    updatedState[set - 1] = data;
-    console.log("2.", updatedState);
-    dispatch(
-      setWorkoutData({
-        ...workoutData,
-        exercises: [],
-      })
-    );
-    // const updatedState = workoutData.exercises;
-    // updatedState.exercises = updatedState.exercises || {};
-    // if (!updatedState.exercises[name]) {
-    //   updatedState.exercises[name] = { name, data };
-    // }
-    // dispatch(setWorkoutData(updatedState));
-  };
-
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     const selectedRoutine =
@@ -89,6 +69,7 @@ const NewWorkout = ({ updatePage }) => {
         const data = Array.from({ length: sets }, () => ({
           reps: null,
           weight: null,
+          notes: null,
         }));
         return { name: exercise, data };
       }),
@@ -104,20 +85,16 @@ const NewWorkout = ({ updatePage }) => {
         <DateDropdown workoutData={workoutData} />
       </div>
       {workoutData.exercises &&
-        workoutData.exercises.map(({ name, data }, exerciseNumber) => (
+        workoutData.exercises.map(({ name, data }, exerciseIndex) => (
           <Exercise
             name={name}
-            exerciseNumber={exerciseNumber}
+            exerciseIndex={exerciseIndex}
             setCount={data.length}
-            addWorkoutData={addWorkoutData}
             key={name + data.length}
           />
         ))}
       {workoutData.exercises && (
-        <NewWorkoutFooter
-          // addExercise={addExercise}
-          sendWorkoutData={sendWorkoutData}
-        />
+        <NewWorkoutFooter sendWorkoutData={sendWorkoutData} />
       )}
     </div>
   );
