@@ -10,7 +10,6 @@ const NewWorkout = ({ updatePage }) => {
   const { workoutData } = useSelector((state) => state.newWorkout);
   const { routines } = useSelector((state) => state.routine);
   const dispatch = useDispatch();
-  console.log(workoutData);
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
@@ -48,11 +47,8 @@ const NewWorkout = ({ updatePage }) => {
   /* WIP: POST / COMPLETE WORKOUT */
   const sendWorkoutData = async () => {
     try {
-      const body = workoutData;
-      body.exercises = Object.keys(body.exercises).map(
-        (key) => body.exercises[key]
-      );
-      await postWorkout(body);
+      // CURRENTLY ALLOW NULL VALUES
+      await postWorkout(workoutData);
       updatePage("log");
     } catch (err) {
       console.error(err);
@@ -61,6 +57,7 @@ const NewWorkout = ({ updatePage }) => {
 
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
+    /* REFACTOR TO USE ROUTINE ID */
     const selectedRoutine =
       routines && routines.find((routine) => routine.name === e.target.value);
     const data = {

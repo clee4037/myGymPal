@@ -6,7 +6,6 @@ import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
 
 const Exercise = ({ name, setCount, exerciseIndex }) => {
-  const [setData, setSetData] = useState([]);
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const [exerciseName, setExerciseName] = useState(null);
@@ -33,21 +32,7 @@ const Exercise = ({ name, setCount, exerciseIndex }) => {
     setIsHistoryVisible(!isHistoryVisible);
   };
 
-  const addSet = (count = 1) => {
-    const addedSets = [];
-    for (let i = 0; i < count; i++) {
-      addedSets.push({
-        set: setData.length + i + 1,
-        weight: null,
-        reps: null,
-        notes: null,
-      });
-    }
-    setSetData([...setData, ...addedSets]);
-  };
-
   useEffect(() => {
-    addSet(setCount || 1);
     setExerciseName(name);
     getHistory();
   }, [setCount]);
@@ -58,12 +43,9 @@ const Exercise = ({ name, setCount, exerciseIndex }) => {
 
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <ExerciseHeader
-        exerciseName={exerciseName}
-        selectExercise={selectExercise}
-      />
+      <ExerciseHeader exerciseName={name} selectExercise={selectExercise} />
       <ExerciseTable
-        setData={setData}
+        // setData={setData}
         exerciseIndex={exerciseIndex}
         name={name}
       />
