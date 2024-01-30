@@ -17,15 +17,7 @@ const initialState = {
           },
         ],
       },
-      {
-        name: "Lunges",
-        data: [
-          {
-            reps: 6,
-            weight: 80,
-          },
-        ],
-      },
+      ...
     ],
   },
   */

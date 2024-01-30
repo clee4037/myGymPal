@@ -1,9 +1,22 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getWorkoutData } from "../getWorkoutData";
 
 const initialState = {
-  workouts: [],
+  getWorkoutThunk: {
+    workouts: [],
+    isLoading: false,
+    error: null,
+  },
   view: "list",
 };
+
+export const fetchWorkouts = createAsyncThunk(
+  "content/fetchWorkouts",
+  async () => {
+    const response = await getWorkoutData();
+    return response;
+  }
+);
 
 export const logSlice = createSlice({
   name: "log",
@@ -15,6 +28,19 @@ export const logSlice = createSlice({
     setView: (state, action) => {
       state.view = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchWorkouts.pending, (state) => {
+      state.getWorkoutThunk.isLoading = true;
+    });
+    builder.addCase(fetchWorkouts.fulfilled, (state, action) => {
+      state.getWorkoutThunk.isLoading = false;
+      state.getWorkoutThunk.workouts = action.payload;
+    });
+    builder.addCase(fetchWorkouts.rejected, (state, action) => {
+      state.getWorkoutThunk.isLoading = false;
+      state.getWorkoutThunk.error = action.error.message;
+    });
   },
 });
 
