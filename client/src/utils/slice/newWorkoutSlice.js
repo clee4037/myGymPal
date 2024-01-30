@@ -62,10 +62,19 @@ export const newWorkoutSlice = createSlice({
       const { exerciseIndex, setIndex, col, newData } = action.payload;
       state.workoutData.exercises[exerciseIndex].data[setIndex][col] = newData;
     },
+    updateExercise: (state, action) => {
+      const { exerciseIndex, name } = action.payload;
+      state.workoutData.exercises[exerciseIndex].name = name;
+    },
   },
 });
 
-export const { setWorkoutData, addExercise, addSet, updateWorkoutData } =
-  newWorkoutSlice.actions;
+export const {
+  setWorkoutData,
+  addExercise,
+  addSet,
+  updateWorkoutData,
+  updateExercise,
+} = newWorkoutSlice.actions;
 
 export default newWorkoutSlice.reducer;

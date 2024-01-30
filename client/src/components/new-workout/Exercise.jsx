@@ -8,7 +8,6 @@ import { getWorkoutData } from "../../utils/getWorkoutData";
 const Exercise = ({ name, setCount, exerciseIndex }) => {
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
-  const [exerciseName, setExerciseName] = useState(null);
 
   /* GET HISTORY */
   const getHistory = async () => {
@@ -33,22 +32,13 @@ const Exercise = ({ name, setCount, exerciseIndex }) => {
   };
 
   useEffect(() => {
-    setExerciseName(name);
     getHistory();
   }, [setCount]);
 
-  const selectExercise = (e) => {
-    setExerciseName(e.target.value);
-  };
-
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <ExerciseHeader exerciseName={name} selectExercise={selectExercise} />
-      <ExerciseTable
-        // setData={setData}
-        exerciseIndex={exerciseIndex}
-        name={name}
-      />
+      <ExerciseHeader exerciseName={name} exerciseIndex={exerciseIndex} />
+      <ExerciseTable exerciseIndex={exerciseIndex} name={name} />
       <ExerciseFooter viewHistory={viewHistory} exerciseIndex={exerciseIndex} />
       {isHistoryVisible && <History history={history[name]} />}
     </div>

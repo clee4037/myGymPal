@@ -3,7 +3,7 @@ import Exercise from "../components/new-workout/Exercise";
 import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
 import DateDropdown from "../components/new-workout/DateDropdown";
 import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
-import { postWorkout } from "../utils/postWorkout";
+// import { postWorkout } from "../utils/postWorkout";
 import { setWorkoutData } from "../utils/slice/newWorkoutSlice";
 
 const NewWorkout = ({ updatePage }) => {
@@ -44,22 +44,12 @@ const NewWorkout = ({ updatePage }) => {
   //   return true;
   // };
 
-  /* WIP: POST / COMPLETE WORKOUT */
-  const sendWorkoutData = async () => {
-    try {
-      // CURRENTLY ALLOW NULL VALUES
-      await postWorkout(workoutData);
-      updatePage("log");
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
   /* CHOOSE ROUTINE AND RENDER */
   const chooseRoutine = (e) => {
     /* REFACTOR TO USE ROUTINE ID */
     const selectedRoutine =
       routines && routines.find((routine) => routine.name === e.target.value);
+
     const data = {
       routine: selectedRoutine.name,
       exercises: selectedRoutine.data.map(({ exercise, sets }) => {
@@ -90,9 +80,7 @@ const NewWorkout = ({ updatePage }) => {
             key={name + data.length}
           />
         ))}
-      {workoutData.exercises && (
-        <NewWorkoutFooter sendWorkoutData={sendWorkoutData} />
-      )}
+      {workoutData.exercises && <NewWorkoutFooter />}
     </div>
   );
 };
