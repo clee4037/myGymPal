@@ -1,13 +1,12 @@
 import React from "react";
 import { postWorkout } from "../../utils/postWorkout";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addExercise } from "../../utils/slice/newWorkoutSlice";
 import { useNavigate } from "react-router-dom";
 
-const NewWorkoutFooter = () => {
+const NewWorkoutFooter = ({ workoutData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { workoutData } = useSelector((state) => state.newWorkout);
   const sendWorkoutData = async () => {
     try {
       // CURRENTLY ALLOW NULL VALUES
@@ -19,10 +18,12 @@ const NewWorkoutFooter = () => {
   };
 
   return (
-    <>
-      <button onClick={() => dispatch(addExercise())}>Add Exercise |</button>{" "}
-      <button onClick={sendWorkoutData}>Finish Workout</button>
-    </>
+    workoutData.exercises && (
+      <>
+        <button onClick={() => dispatch(addExercise())}>Add Exercise |</button>{" "}
+        <button onClick={sendWorkoutData}>Finish Workout</button>
+      </>
+    )
   );
 };
 

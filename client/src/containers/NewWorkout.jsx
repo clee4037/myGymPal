@@ -1,7 +1,9 @@
 import { useSelector, useDispatch } from "react-redux";
-import Exercise from "../components/new-workout/Exercise";
-import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
-import DateDropdown from "../components/new-workout/DateDropdown";
+// import Exercise from "../components/new-workout/Exercise";
+import ExerciseList from "../components/new-workout/ExerciseList";
+// import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
+// import DateDropdown from "../components/new-workout/DateDropdown";
+import NewWorkoutHeader from "../components/new-workout/NewWorkoutHeader";
 import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
 import { setWorkoutData } from "../utils/slice/newWorkoutSlice";
 
@@ -64,21 +66,18 @@ const NewWorkout = ({ updatePage }) => {
 
   return (
     <div className="pl-5 pr-5">
-      <h2 className="text-left text-2xl ">New Workout</h2>
+      <NewWorkoutHeader
+        chooseRoutine={chooseRoutine}
+        workoutData={workoutData}
+      />
+      {/* <h2 className="text-left text-2xl ">New Workout</h2>
       <div className="workout-header pb-5">
         <RoutineDropdown chooseRoutine={chooseRoutine} />
         <DateDropdown workoutData={workoutData} />
-      </div>
-      {workoutData.exercises &&
-        workoutData.exercises.map(({ name, data }, exerciseIndex) => (
-          <Exercise
-            name={name}
-            exerciseIndex={exerciseIndex}
-            setCount={data.length}
-            key={name + data.length}
-          />
-        ))}
-      {workoutData.exercises && <NewWorkoutFooter />}
+      </div> */}
+
+      <ExerciseList exercises={workoutData.exercises} />
+      <NewWorkoutFooter workoutData={workoutData} />
     </div>
   );
 };
