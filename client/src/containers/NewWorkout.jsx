@@ -5,7 +5,6 @@ import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
 
 const NewWorkout = () => {
   const { workoutData } = useSelector((state) => state.newWorkout);
-
   // const validator = () => {
   //   const body = { ...workoutData, exercises: [] };
   //   if (workoutData.date) {
