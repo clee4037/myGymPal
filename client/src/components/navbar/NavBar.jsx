@@ -2,31 +2,15 @@ import React from "react";
 import NavBarTitle from "./NavBarTitle.jsx";
 import NavBarButtons from "./NavBarButtons.jsx";
 
-const NavBar = ({ currentPage, updatePage }) => {
+const NavBar = () => {
   return (
     <div className="navbar bg-white mb-4">
-      <NavBarTitle updatePage={updatePage} currentPage={currentPage} />
+      <NavBarTitle />
       <div className="navbar-center flex">
-        <NavBarButtons
-          button="log"
-          updatePage={updatePage}
-          currentPage={currentPage}
-        />
-        <NavBarButtons
-          button="routine"
-          updatePage={updatePage}
-          currentPage={currentPage}
-        />
-        <NavBarButtons
-          button="stats"
-          updatePage={updatePage}
-          currentPage={currentPage}
-        />
-        <NavBarButtons
-          button="profile"
-          updatePage={updatePage}
-          currentPage={currentPage}
-        />
+        <NavBarButtons button="log" />
+        <NavBarButtons button="routine" />
+        <NavBarButtons button="stats" />
+        <NavBarButtons button="profile" />
       </div>
       <div className="navbar-end">
         <button className="btn btn-ghost btn-circle">

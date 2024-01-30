@@ -2,16 +2,15 @@ import React from "react";
 import ExerciseTitle from "./ExerciseTitle";
 import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
 
-const ExerciseHeader = ({ exerciseName, selectExercise }) => {
+const ExerciseHeader = ({ exerciseName, exerciseIndex }) => {
   /* NEED TO FIX: ADDING NEW EXERCISE TO ROUTINE DOESNT WORK
       - HISTORY ISNT DISPLAYED */
-
   return exerciseName ? (
-    <ExerciseTitle exerciseName={exerciseName} />
+    <ExerciseTitle exerciseIndex={exerciseIndex} />
   ) : (
     <ExerciseDropdown
       exerciseName={exerciseName}
-      selectExercise={selectExercise}
+      exerciseIndex={exerciseIndex}
     />
   );
 };

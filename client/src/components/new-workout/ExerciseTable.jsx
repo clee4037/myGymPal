@@ -1,26 +1,11 @@
 import React from "react";
 import ExerciseTableCols from "./ExerciseTableCols";
+import { useSelector } from "react-redux";
 
-const ExerciseTable = ({
-  setData,
-  exerciseData,
-  name,
-  addWorkoutData,
-  updateExerciseData,
-  exerciseNumber,
-}) => {
-  const updateState = (workoutName, currentState, set, column, value) => {
-    if (!currentState[set - 1]) {
-      currentState[set - 1] = {};
-    }
-    if (column === "notes") {
-      currentState[set - 1].notes = value;
-    } else {
-      currentState[set - 1][column] = Number(value);
-    }
-    addWorkoutData(set, name, currentState);
-    updateExerciseData(currentState);
-  };
+const ExerciseTable = ({ exerciseData, name, exerciseIndex }) => {
+  const { data } = useSelector(
+    (state) => state.newWorkout.workoutData.exercises[exerciseIndex]
+  );
   return (
     <table className="exercise-table w-[95%]">
       <thead>
@@ -32,29 +17,29 @@ const ExerciseTable = ({
         </tr>
       </thead>
       <tbody>
-        {setData.map(({ set, weight, reps, notes }) => (
-          <tr key={set}>
-            <th scope="row">{set}</th>
+        {data.map(({ weight, reps, notes }, set) => (
+          <tr key={set + 1}>
+            <th scope="row">{set + 1}</th>
             <ExerciseTableCols
               col={"weight"}
-              set={set}
+              set={set + 1}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"reps"}
-              set={set}
+              set={set + 1}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"notes"}
-              set={set}
+              set={set + 1}
               workoutTitle={name}
               exerciseData={exerciseData}
-              updateState={updateState}
+              exerciseIndex={exerciseIndex}
             />
           </tr>
         ))}

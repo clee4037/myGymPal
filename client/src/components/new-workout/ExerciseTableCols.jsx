@@ -1,12 +1,15 @@
 import React from "react";
+import { updateWorkoutData } from "../../utils/slice/newWorkoutSlice";
+import { useDispatch } from "react-redux";
 
 const ExerciseTableCols = ({
   col,
   set,
   workoutTitle,
   exerciseData,
-  updateState,
+  exerciseIndex,
 }) => {
+  const dispatch = useDispatch();
   const labelData = {
     weight: {
       type: "number",
@@ -40,7 +43,14 @@ const ExerciseTableCols = ({
           className="w-full"
           value={exerciseData?.[set - 1]?.[col]}
           onChange={(e) =>
-            updateState(workoutTitle, exerciseData, set, col, e.target.value)
+            dispatch(
+              updateWorkoutData({
+                exerciseIndex,
+                setIndex: set - 1,
+                col,
+                newData: e.target.value,
+              })
+            )
           }
         />
       </label>

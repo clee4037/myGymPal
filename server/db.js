@@ -66,11 +66,11 @@ const workoutSchema = new mongoose.Schema({
         {
           reps: {
             type: Number,
-            required: true,
+            // required: true,
           },
           weight: {
             type: Number,
-            required: true,
+            // required: true,
           },
           notes: {
             type: String,

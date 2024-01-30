@@ -9,7 +9,7 @@ import "../stylesheets/workout_log.css";
 
 import { setWorkout } from "../utils/slice/logSlice";
 
-const WorkoutLog = ({ updatePage }) => {
+const WorkoutLog = () => {
   const { workouts, view } = useSelector((state) => state.log);
   const dispatch = useDispatch();
 
@@ -25,11 +25,11 @@ const WorkoutLog = ({ updatePage }) => {
   return (
     <>
       <div className="flex flex-row justify-between pl-5 pr-5 items-center">
-        <WorkoutLogLeft updatePage={updatePage} />
+        <WorkoutLogLeft />
         <WorkoutLogRight />
       </div>
       {view === "list" ? (
-        <ListView workouts={workouts} updatePage={updatePage} />
+        <ListView workouts={workouts} />
       ) : (
         <CalendarView workouts={workouts} />
       )}

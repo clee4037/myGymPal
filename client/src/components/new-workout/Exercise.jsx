@@ -5,12 +5,9 @@ import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
 import { getWorkoutData } from "../../utils/getWorkoutData";
 
-const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
-  const [setData, setSetData] = useState([]);
+const Exercise = ({ name, setCount, exerciseIndex }) => {
   const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
-  const [exerciseData, setExerciseData] = useState([]);
-  const [exerciseName, setExerciseName] = useState(null);
 
   /* GET HISTORY */
   const getHistory = async () => {
@@ -34,51 +31,15 @@ const Exercise = ({ name, setCount, addWorkoutData, exerciseNumber }) => {
     setIsHistoryVisible(!isHistoryVisible);
   };
 
-  const updateExerciseData = (updatedState) => {
-    setExerciseData(updatedState);
-  };
-
-  const addSet = (count = 1) => {
-    const addedSets = [];
-    for (let i = 0; i < count; i++) {
-      addedSets.push({
-        set: setData.length + i + 1,
-        weight: null,
-        reps: null,
-        notes: null,
-      });
-    }
-    setSetData([...setData, ...addedSets]);
-  };
-
   useEffect(() => {
-    addSet(setCount || 1);
-    setExerciseName(name);
     getHistory();
   }, [setCount]);
 
-  const selectExercise = (e) => {
-    setExerciseName(e.target.value);
-  };
-
   return (
     <div className="items-center card shadow-xl bg-white mb-5">
-      <ExerciseHeader
-        exerciseName={exerciseName}
-        selectExercise={selectExercise}
-      />
-      <ExerciseTable
-        setData={setData}
-        exerciseNumber={exerciseNumber}
-        exerciseData={exerciseData}
-        name={name}
-        addWorkoutData={addWorkoutData}
-        updateExerciseData={updateExerciseData}
-      />
-      <ExerciseFooter
-        viewHistory={viewHistory}
-        exerciseNumber={exerciseNumber}
-      />
+      <ExerciseHeader exerciseName={name} exerciseIndex={exerciseIndex} />
+      <ExerciseTable exerciseIndex={exerciseIndex} name={name} />
+      <ExerciseFooter viewHistory={viewHistory} exerciseIndex={exerciseIndex} />
       {isHistoryVisible && <History history={history[name]} />}
     </div>
   );
