@@ -4,26 +4,34 @@ import { GoHistory } from "react-icons/go";
 import { LuDumbbell } from "react-icons/lu";
 import { IoIosStats } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../utils/slice/navBarSlice";
 
-const NavBarButtons = ({ button, updatePage, currentPage }) => {
+const NavBarButtons = ({ button }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { currentPage } = useSelector((state) => state.navBar);
+
   const icons = {
     profile: <CgProfile size={24} />,
     log: <GoHistory size={24} />,
     routine: <LuDumbbell size={24} />,
     stats: <IoIosStats size={24} />,
   };
+
+  const selectButton = () => {
+    button === "log" ? navigate("/") : navigate(`/${button}`);
+    dispatch(setPage(button));
+  };
+
   return (
     <button
       className={
-        currentPage === { button }
+        currentPage === button
           ? "cursor-pointer text-torq pr-5 pl-5 btn btn-ghost"
           : "cursor-pointer pr-5 pl-5 btn btn-ghost"
       }
-      onClick={() => {
-        updatePage(button);
-        button === "log" ? navigate("/") : navigate(`/${button}`);
-      }}
+      onClick={() => selectButton()}
     >
       {icons[button]}
     </button>
