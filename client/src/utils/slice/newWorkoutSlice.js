@@ -66,6 +66,21 @@ export const newWorkoutSlice = createSlice({
       const { exerciseIndex, name } = action.payload;
       state.workoutData.exercises[exerciseIndex].name = name;
     },
+    autofillRoutine: (state, action) => {
+      const routine = action.payload; // Routine data object
+      const data = {
+        routine: routine.name,
+        exercises: routine.data.map(({ exercise, sets }) => {
+          const data = Array.from({ length: sets }, () => ({
+            reps: null,
+            weight: null,
+            notes: null,
+          }));
+          return { name: exercise, data };
+        }),
+      };
+      state.workoutData = data;
+    },
   },
 });
 
@@ -75,6 +90,7 @@ export const {
   addSet,
   updateWorkoutData,
   updateExercise,
+  autofillRoutine,
 } = newWorkoutSlice.actions;
 
 export default newWorkoutSlice.reducer;

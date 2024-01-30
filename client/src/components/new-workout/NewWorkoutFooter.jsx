@@ -1,7 +1,7 @@
 import React from "react";
+import { addExercise } from "../../utils/slice/newWorkoutSlice";
 import { postWorkout } from "../../utils/postWorkout";
 import { useDispatch } from "react-redux";
-import { addExercise } from "../../utils/slice/newWorkoutSlice";
 import { useNavigate } from "react-router-dom";
 
 const NewWorkoutFooter = ({ workoutData }) => {

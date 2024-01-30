@@ -7,12 +7,6 @@ import { updateExercise } from "../../utils/slice/newWorkoutSlice";
 const ExerciseDropdown = ({ exerciseName, exerciseIndex }) => {
   const dispatch = useDispatch();
   const exerciseList = useSelector((state) => state.routine.exercises);
-  // const exercise = useSelector(
-  //   (state) => state.newWorkout.workoutData.exercises[exerciseIndex]
-  // );
-  const exercise = useSelector(
-    (state) => state.newWorkout.workoutData.exercises
-  );
 
   const selectExercise = (e) => {
     updateExercise({ exerciseIndex, name: e.target.value });
