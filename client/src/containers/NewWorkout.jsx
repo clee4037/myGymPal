@@ -3,7 +3,6 @@ import Exercise from "../components/new-workout/Exercise";
 import RoutineDropdown from "../components/routine-dropdown/RoutineDropdown";
 import DateDropdown from "../components/new-workout/DateDropdown";
 import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
-// import { postWorkout } from "../utils/postWorkout";
 import { setWorkoutData } from "../utils/slice/newWorkoutSlice";
 
 const NewWorkout = ({ updatePage }) => {
@@ -49,7 +48,6 @@ const NewWorkout = ({ updatePage }) => {
     /* REFACTOR TO USE ROUTINE ID */
     const selectedRoutine =
       routines && routines.find((routine) => routine.name === e.target.value);
-
     const data = {
       routine: selectedRoutine.name,
       exercises: selectedRoutine.data.map(({ exercise, sets }) => {

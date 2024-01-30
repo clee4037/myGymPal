@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-// import RoutineDropdownOptions from "./RoutineDropdownOptions";
 import { useSelector, useDispatch } from "react-redux";
 import { getRoutines } from "../../utils/getRoutines";
 import { setRoutines } from "../../utils/slice/routineSlice";
