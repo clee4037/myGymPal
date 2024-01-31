@@ -1,19 +1,21 @@
 import React from "react";
-import { addExercise } from "../../utils/slice/newWorkoutSlice";
-import { postWorkout } from "../../utils/postWorkout";
-import { useDispatch } from "react-redux";
+import { addExercise, sendWorkout } from "../../utils/slice/newWorkoutSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const NewWorkoutFooter = ({ workoutData }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const sendWorkoutData = async () => {
-    try {
-      // CURRENTLY ALLOW NULL VALUES
-      await postWorkout(workoutData);
+  const { sendWorkoutThunk } = useSelector((state) => state.newWorkout);
+
+  const handleWorkoutPost = async () => {
+    await dispatch(sendWorkout());
+    if (sendWorkoutThunk.isLoading) {
+      console.log("Loading...");
+    } else if (sendWorkoutThunk.error) {
+      console.error(sendWorkoutThunk.error);
+    } else {
       navigate("/");
-    } catch (err) {
-      console.error(err);
     }
   };
 
@@ -21,7 +23,7 @@ const NewWorkoutFooter = ({ workoutData }) => {
     workoutData.exercises && (
       <>
         <button onClick={() => dispatch(addExercise())}>Add Exercise |</button>{" "}
-        <button onClick={sendWorkoutData}>Finish Workout</button>
+        <button onClick={handleWorkoutPost}>Finish Workout</button>
       </>
     )
   );

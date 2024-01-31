@@ -4,6 +4,7 @@ import { getWorkoutData } from "../getWorkoutData";
 const initialState = {
   getWorkoutThunk: {
     workouts: [],
+    history: {},
     isLoading: false,
     error: null,
   },
@@ -33,6 +34,15 @@ export const logSlice = createSlice({
     builder.addCase(fetchWorkouts.fulfilled, (state, action) => {
       state.getWorkoutThunk.isLoading = false;
       state.getWorkoutThunk.workouts = action.payload;
+
+      const historyData = {};
+      action.payload.forEach((workout) => {
+        workout.exercises.forEach(({ name, data }) => {
+          const { date } = workout;
+          historyData[name] = [...(historyData[name] || []), { date, data }];
+        });
+      });
+      state.getWorkoutThunk.history = historyData;
     });
     builder.addCase(fetchWorkouts.rejected, (state, action) => {
       state.getWorkoutThunk.isLoading = false;
