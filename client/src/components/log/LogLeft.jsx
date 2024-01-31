@@ -3,7 +3,7 @@ import { IoAddCircleOutline } from "react-icons/io5";
 import "../../stylesheets/workout_log.css";
 import { useNavigate } from "react-router-dom";
 
-const WorkoutLogLeft = () => {
+const LogLeft = () => {
   const navigate = useNavigate();
   return (
     <div className="flex flex-row items-center">
@@ -16,4 +16,4 @@ const WorkoutLogLeft = () => {
   );
 };
 
-export default WorkoutLogLeft;
+export default LogLeft;

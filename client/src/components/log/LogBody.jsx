@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchWorkouts } from "../../utils/slice/logSlice";
 import ListView from "../log-list-view/ListView";
 import CalendarView from "../log-calendar-view/CalendarView";
-import { fetchWorkouts } from "../../utils/slice/logSlice";
 
-const WorkoutLogBody = () => {
+const LogBody = () => {
   const { getWorkoutThunk, view } = useSelector((state) => state.log);
   const dispatch = useDispatch();
 
@@ -19,4 +19,4 @@ const WorkoutLogBody = () => {
   );
 };
 
-export default WorkoutLogBody;
+export default LogBody;
