@@ -71,7 +71,7 @@ export const newWorkoutSlice = createSlice({
       state.workoutData.exercises[exerciseIndex].name = name;
     },
     autofillRoutine: (state, action) => {
-      const routine = action.payload; // Routine data object
+      const routine = action.payload;
       const data = {
         routine: routine.name,
         exercises: routine.data.map(({ exercise, sets }) => {
