@@ -1,12 +1,11 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { getRoutines } from "../../utils/getRoutines";
-import { setRoutines } from "../../utils/slice/routineSlice";
+import { fetchRoutines } from "../../utils/slice/routineSlice";
 import { autofillRoutine } from "../../utils/slice/newWorkoutSlice";
 
 const RoutineDropdown = () => {
   const dispatch = useDispatch();
-  const { routines } = useSelector((state) => state.routine);
+  const { routines } = useSelector((state) => state.routine.getRoutinesThunk);
 
   const chooseRoutine = (e) => {
     const selectedRoutine = routines.find(
@@ -15,14 +14,9 @@ const RoutineDropdown = () => {
     dispatch(autofillRoutine(selectedRoutine));
   };
 
-  const fetchRoutines = async () => {
-    const data = await getRoutines();
-    dispatch(setRoutines(data));
-  };
-
   useEffect(() => {
-    fetchRoutines();
-  }, []);
+    dispatch(fetchRoutines());
+  }, [dispatch]);
 
   return (
     <select

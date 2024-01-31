@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+import ExerciseDropdown from "../dropdowns/ExerciseDropdown";
 
 const AddRoutine = ({ updatePage }) => {
   /* REDUX IT */

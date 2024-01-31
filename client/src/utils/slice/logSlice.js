@@ -10,13 +10,10 @@ const initialState = {
   view: "list",
 };
 
-export const fetchWorkouts = createAsyncThunk(
-  "content/fetchWorkouts",
-  async () => {
-    const response = await getWorkoutData();
-    return response;
-  }
-);
+export const fetchWorkouts = createAsyncThunk("log/fetchWorkouts", async () => {
+  const response = await getWorkoutData();
+  return response;
+});
 
 export const logSlice = createSlice({
   name: "log",

@@ -1,20 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { getRoutines } from "../utils/getRoutines";
 import RoutineItem from "../components/routines/RoutineItem";
 import RoutinesHeader from "../components/routines/RoutinesHeader";
 import AddRoutine from "../components/routines/AddRoutine";
 import { useSelector, useDispatch } from "react-redux";
-import { setRoutines } from "../utils/slice/routineSlice";
+import { fetchRoutines } from "../utils/slice/routineSlice";
 
 const Routines = () => {
   const dispatch = useDispatch();
-  const { routines } = useSelector((state) => state.routine);
+  const { routines } = useSelector((state) => state.routine.getRoutinesThunk);
   const [showRoutineForm, setShowRoutineForm] = useState(false);
-
-  const fetchRoutines = async () => {
-    const data = await getRoutines();
-    dispatch(setRoutines(data));
-  };
 
   /* WIP: ADD ROUTINE FEATURE */
   const createRoutine = () => {
@@ -23,8 +17,8 @@ const Routines = () => {
   };
 
   useEffect(() => {
-    fetchRoutines();
-  }, []);
+    dispatch(fetchRoutines());
+  }, [dispatch]);
 
   return (
     <>

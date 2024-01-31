@@ -1,31 +1,25 @@
 import React, { useEffect } from "react";
-import { getExercises } from "../../utils/getExercises";
 import { useSelector, useDispatch } from "react-redux";
-import { setExercises } from "../../utils/slice/routineSlice";
+import { fetchExercises } from "../../utils/slice/routineSlice";
 import { updateExercise } from "../../utils/slice/newWorkoutSlice";
 
 const ExerciseDropdown = ({ exerciseName, exerciseIndex }) => {
   const dispatch = useDispatch();
-  const exerciseList = useSelector((state) => state.routine.exercises);
+  const { exercises } = useSelector((state) => state.routine.getExercisesThunk);
 
   const selectExercise = (e) => {
     updateExercise({ exerciseIndex, name: e.target.value });
   };
 
-  const fetchExercises = async () => {
-    const data = await getExercises();
-    dispatch(setExercises(data));
-  };
-
   useEffect(() => {
-    fetchExercises();
-  }, []);
+    dispatch(fetchExercises());
+  }, [dispatch]);
 
   return (
     <select className="exercise-dropdown" onChange={selectExercise}>
       <option value="Select an option">Select an option</option>
-      {exerciseList &&
-        exerciseList.map((exerciseGroup) => (
+      {exercises &&
+        exercises.map((exerciseGroup) => (
           <optgroup label={exerciseGroup.type} key={exerciseGroup._id}>
             {exerciseGroup.exercises.map((exercise) => (
               <option value={exercise.name} key={exercise._id}>
