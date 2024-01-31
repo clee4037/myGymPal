@@ -62,6 +62,4 @@ export const routineSlice = createSlice({
   },
 });
 
-// export const { setRoutines, setExercises } = routineSlice.actions;
-
 export default routineSlice.reducer;

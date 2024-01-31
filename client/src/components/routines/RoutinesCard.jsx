@@ -1,7 +1,7 @@
 import React from "react";
 import "../../stylesheets/workout_log.css";
 
-const RoutineItem = ({ data }) => {
+const RoutinesCard = ({ data }) => {
   const emoji = {
     1: "🥇",
     "Nat's Chad Chest Day": "💪🏼",
@@ -25,4 +25,4 @@ const RoutineItem = ({ data }) => {
   );
 };
 
-export default RoutineItem;
+export default RoutinesCard;

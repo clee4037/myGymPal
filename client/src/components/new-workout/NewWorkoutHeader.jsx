@@ -1,5 +1,5 @@
 import RoutineDropdown from "../dropdowns/RoutineDropdown";
-import DateDropdown from "../new-workout/DateDropdown";
+import DateDropdown from "../dropdowns/DateDropdown";
 
 const NewWorkoutHeader = ({ workoutData }) => {
   return (
