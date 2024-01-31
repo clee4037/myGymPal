@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import ExerciseDropdown from "../dropdowns/ExerciseDropdown";
 
 const AddRoutine = ({ showRoutineForm }) => {
-  /* WIP: REDUX IT */
+  /* WIP: REDUX IT ONCE BUILT OUT*/
   const [exerciseName, setExerciseName] = useState("");
 
   const selectExercise = (exercise) => {

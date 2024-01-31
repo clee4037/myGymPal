@@ -2,7 +2,7 @@ import React from "react";
 import ExerciseTableCols from "./ExerciseTableCols";
 import { useSelector } from "react-redux";
 
-const ExerciseTable = ({ exerciseData, name, exerciseIndex }) => {
+const ExerciseTable = ({ name, exerciseIndex }) => {
   const { data } = useSelector(
     (state) => state.newWorkout.workoutData.exercises[exerciseIndex]
   );
@@ -18,27 +18,27 @@ const ExerciseTable = ({ exerciseData, name, exerciseIndex }) => {
       </thead>
       <tbody>
         {data.map(({ weight, reps, notes }, set) => (
-          <tr key={set + 1}>
+          <tr key={set}>
             <th scope="row">{set + 1}</th>
             <ExerciseTableCols
               col={"weight"}
-              set={set + 1}
+              set={set}
               workoutTitle={name}
-              exerciseData={exerciseData}
+              exerciseData={weight}
               exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"reps"}
-              set={set + 1}
+              set={set}
               workoutTitle={name}
-              exerciseData={exerciseData}
+              exerciseData={reps}
               exerciseIndex={exerciseIndex}
             />
             <ExerciseTableCols
               col={"notes"}
-              set={set + 1}
+              set={set}
               workoutTitle={name}
-              exerciseData={exerciseData}
+              exerciseData={notes}
               exerciseIndex={exerciseIndex}
             />
           </tr>

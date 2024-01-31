@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from "react-redux";
 const Exercise = ({ name, setCount, exerciseIndex }) => {
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
   const { history } = useSelector((state) => state.log.getWorkoutThunk);
-  const { getWorkoutThunk } = useSelector((state) => state.log);
   const dispatch = useDispatch();
 
   /* VIEW HISTORY */
