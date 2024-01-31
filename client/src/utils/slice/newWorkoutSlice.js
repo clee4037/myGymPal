@@ -1,9 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { postWorkout } from "../postWorkout";
 
 const initialState = {
   workoutData: {},
-  /*
-  {
+  sendWorkoutThunk: {
+    isLoading: false,
+    error: null,
+  },
+
+  /*   {
     workout_id: 3,
     routine: "Legs",
     date: "12/17/23",
@@ -17,19 +22,18 @@ const initialState = {
           },
         ],
       },
-      {
-        name: "Lunges",
-        data: [
-          {
-            reps: 6,
-            weight: 80,
-          },
-        ],
-      },
+      ...
     ],
-  },
-  */
+  }, */
 };
+
+export const sendWorkout = createAsyncThunk(
+  "newWorkout/sendWorkout",
+  async (_, { getState }) => {
+    const { workoutData } = getState().newWorkout;
+    await postWorkout(workoutData);
+  }
+);
 
 export const newWorkoutSlice = createSlice({
   name: "newWorkout",
@@ -67,7 +71,7 @@ export const newWorkoutSlice = createSlice({
       state.workoutData.exercises[exerciseIndex].name = name;
     },
     autofillRoutine: (state, action) => {
-      const routine = action.payload; // Routine data object
+      const routine = action.payload;
       const data = {
         routine: routine.name,
         exercises: routine.data.map(({ exercise, sets }) => {
@@ -81,6 +85,18 @@ export const newWorkoutSlice = createSlice({
       };
       state.workoutData = data;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(sendWorkout.pending, (state) => {
+      state.sendWorkoutThunk.isLoading = true;
+    });
+    builder.addCase(sendWorkout.fulfilled, (state, action) => {
+      state.sendWorkoutThunk.isLoading = false;
+    });
+    builder.addCase(sendWorkout.rejected, (state, action) => {
+      state.sendWorkoutThunk.isLoading = false;
+      state.sendWorkoutThunk.error = action.error.message;
+    });
   },
 });
 

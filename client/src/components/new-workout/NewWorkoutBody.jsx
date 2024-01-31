@@ -1,6 +1,6 @@
-import Exercise from "./Exercise";
+import Exercise from "../new-workout-exercise/Exercise";
 
-const ExerciseList = ({ exercises }) => {
+const NewWorkoutBody = ({ exercises }) => {
   return (
     exercises &&
     exercises.map(({ name, data }, exerciseIndex) => (
@@ -14,4 +14,4 @@ const ExerciseList = ({ exercises }) => {
   );
 };
 
-export default ExerciseList;
+export default NewWorkoutBody;

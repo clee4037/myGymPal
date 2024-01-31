@@ -5,7 +5,7 @@ import ReactDOM from "react-dom/client";
 import { store } from "./store.js";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import WorkoutLog from "./containers/WorkoutLog.jsx";
+import Log from "./containers/Log.jsx";
 import NewWorkout from "./containers/NewWorkout.jsx";
 import Routines from "./containers/Routines.jsx";
 
@@ -16,11 +16,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <WorkoutLog />,
+        element: <Log />,
         children: [
           {
             path: "/calendar",
-            element: <WorkoutLog />,
+            element: <Log />,
           },
         ],
       },

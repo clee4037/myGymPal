@@ -1,7 +1,7 @@
 import React from "react";
 import { IoAddCircleOutline } from "react-icons/io5";
 
-const Routines = ({ createRoutine }) => {
+const RoutineHeader = ({ createRoutine }) => {
   return (
     <div className="flex flex-row pl-5 items-center">
       <h2 className="text-left text-2xl">Routines</h2>
@@ -13,4 +13,4 @@ const Routines = ({ createRoutine }) => {
   );
 };
 
-export default Routines;
+export default RoutineHeader;

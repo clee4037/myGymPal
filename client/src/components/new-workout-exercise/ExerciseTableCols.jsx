@@ -41,12 +41,12 @@ const ExerciseTableCols = ({
         <input
           type={labelData[col].type}
           className="w-full"
-          value={exerciseData?.[set - 1]?.[col]}
+          value={exerciseData?.[set]?.[col]}
           onChange={(e) =>
             dispatch(
               updateWorkoutData({
                 exerciseIndex,
-                setIndex: set - 1,
+                setIndex: set,
                 col,
                 newData: e.target.value,
               })

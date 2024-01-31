@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import ExerciseDropdown from "../exercise-dropdown/ExerciseDropdown";
+import ExerciseDropdown from "../dropdowns/ExerciseDropdown";
 
-const AddRoutine = ({ updatePage }) => {
-  /* REDUX IT */
+const AddRoutine = ({ showRoutineForm }) => {
+  /* WIP: REDUX IT ONCE BUILT OUT*/
   const [exerciseName, setExerciseName] = useState("");
 
   const selectExercise = (exercise) => {
@@ -10,14 +10,16 @@ const AddRoutine = ({ updatePage }) => {
   };
 
   return (
-    <>
-      <ExerciseDropdown
-        exerciseName={exerciseName}
-        selectExercise={selectExercise}
-      />
-      <input type="number" />
-      <button onClick={() => console.log("clicked")}>Add</button>
-    </>
+    showRoutineForm && (
+      <>
+        <ExerciseDropdown
+          exerciseName={exerciseName}
+          selectExercise={selectExercise}
+        />
+        <input type="number" />
+        <button onClick={() => console.log("clicked")}>Add</button>
+      </>
+    )
   );
 };
 

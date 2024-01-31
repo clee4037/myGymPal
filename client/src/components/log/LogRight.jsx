@@ -1,10 +1,9 @@
 import React from "react";
-import "../../stylesheets/workout_log.css";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setView } from "../../utils/slice/logSlice";
 
-const WorkoutLogRight = () => {
+const LogRight = () => {
   const { view } = useSelector((state) => state.log);
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -34,4 +33,4 @@ const WorkoutLogRight = () => {
   );
 };
 
-export default WorkoutLogRight;
+export default LogRight;

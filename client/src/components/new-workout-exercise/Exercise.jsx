@@ -3,28 +3,13 @@ import History from "./History";
 import ExerciseHeader from "./ExerciseHeader";
 import ExerciseFooter from "./ExerciseFooter";
 import ExerciseTable from "./ExerciseTable";
-import { getWorkoutData } from "../../utils/getWorkoutData";
+import { fetchWorkouts } from "../../utils/slice/logSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Exercise = ({ name, setCount, exerciseIndex }) => {
-  const [history, setHistory] = useState(null);
   const [isHistoryVisible, setIsHistoryVisible] = useState(false);
-
-  /* GET HISTORY */
-  const getHistory = async () => {
-    try {
-      const response = await getWorkoutData();
-      const historyData = {};
-      response.forEach((workout) => {
-        workout.exercises.forEach(({ name, data }) => {
-          const { date } = workout;
-          historyData[name] = [...(historyData[name] || []), { date, data }];
-        });
-      });
-      setHistory(historyData);
-    } catch (err) {
-      console.error(err);
-    }
-  };
+  const { history } = useSelector((state) => state.log.getWorkoutThunk);
+  const dispatch = useDispatch();
 
   /* VIEW HISTORY */
   const viewHistory = () => {
@@ -32,8 +17,10 @@ const Exercise = ({ name, setCount, exerciseIndex }) => {
   };
 
   useEffect(() => {
-    getHistory();
-  }, [setCount]);
+    if (history === {}) {
+      dispatch(fetchWorkouts());
+    }
+  }, [dispatch, history]);
 
   return (
     <div className="items-center card shadow-xl bg-white mb-5">

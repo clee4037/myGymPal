@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import ExerciseList from "../components/new-workout/ExerciseList";
+import NewWorkoutBody from "../components/new-workout/NewWorkoutBody";
 import NewWorkoutHeader from "../components/new-workout/NewWorkoutHeader";
 import NewWorkoutFooter from "../components/new-workout/NewWorkoutFooter";
 
@@ -43,7 +43,7 @@ const NewWorkout = () => {
   return (
     <div className="pl-5 pr-5">
       <NewWorkoutHeader workoutData={workoutData} />
-      <ExerciseList exercises={workoutData.exercises} />
+      <NewWorkoutBody exercises={workoutData.exercises} />
       <NewWorkoutFooter workoutData={workoutData} />
     </div>
   );
