@@ -1,13 +1,13 @@
-import React from "react";
-import App from "./App.jsx";
+import * as React from "react";
+import App from "./App";
 import "./index.css";
 import ReactDOM from "react-dom/client";
-import { store } from "./store.js";
+import { store } from "./store";
 import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Log from "./containers/Log.jsx";
-import NewWorkout from "./containers/NewWorkout.jsx";
-import Routines from "./containers/Routines.jsx";
+import Log from "./containers/Log";
+import NewWorkout from "./containers/NewWorkout";
+import Routines from "./containers/Routines";
 
 const router = createBrowserRouter([
   {
