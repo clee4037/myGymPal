@@ -15,7 +15,7 @@ interface Icons {
   [key: string]: ReactElement;
 }
 
-const NavBarButtons = ({ button }: Props) => {
+const NavBarButtons: React.FC<Props> = ({ button }) => {
   // const navigate = useNavigate();
   // const dispatch = useDispatch();
   // const { currentPage } = useSelector((state) => state.navBar);
